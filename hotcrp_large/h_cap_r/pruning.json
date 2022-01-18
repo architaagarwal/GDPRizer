@@ -1,0 +1,14 @@
+{
+  "PaperComment": [
+    "paperId"
+  ],
+  "PaperConflict": [
+    "contactId"
+  ],
+  "PaperReviewPreference":[
+    "paperId"
+  ],
+  "PaperTag": [
+      "paperId"
+    ]
+}

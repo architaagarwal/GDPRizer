@@ -1,0 +1,56 @@
+{
+  "categories":[ 
+    "id"
+  ],
+  "comments":[
+    "parent_comment_id",
+    "hat_id"
+  ],
+  "moderations": [
+    "comment_id",
+    "tag_id",
+    "story_id"
+  ],
+  "votes": [
+    "comment_id",
+    "story_id"
+  ],
+  "taggings": [
+    "id",
+    "story_id",
+    "tag_id"
+  ],
+  "domains": [
+    "id"
+  ],
+  "hidden_stories": [
+    "story_id",
+    "id"
+  ],
+  "read_ribbons": [
+    "id",
+    "story_id"
+  ],
+  "saved_stories": [
+    "story_id"
+  ],
+  "stories": [
+    "merged_story_id"
+  ],
+  "suggested_taggings": [
+    "id",
+    "tag_id",
+    "story_id"
+  ],
+  "suggested_titles": [
+    "story_id"
+  ],
+  "tags":[
+    "id"
+  ],
+  "users" :[
+    "banned_by_user_id",
+    "invited_by_user_id",
+    "disabled_invite_by_user_id"
+  ]
+}

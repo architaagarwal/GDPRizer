@@ -1,0 +1,9 @@
+wp_comments.comment_ID--wp_commentmeta.comment_id
+wp_users.ID--wp_posts.post_author
+wp_users.ID--wp_comments.user_id
+wp_users.ID--wp_usermeta.user_id
+wp_posts.ID--wp_postmeta.post_id
+wp_users.ID--wp_wc_customer_lookup.user_id
+wp_wc_customer_lookup.customer_id--wp_wc_order_product_lookup.customer_id
+wp_wc_customer_lookup.customer_id--wp_wc_order_stats.customer_id
+wp_wc_order_coupon_lookup.order_id--wp_wc_order_stats.order_id

@@ -1,0 +1,11 @@
+{
+  "wp_term_relationships": [
+    "object_id"
+  ],
+  "wp_wc_product_meta_lookup": [
+    "product_id"
+  ],
+  "wp_woocommerce_downloadable_product_permissions": [
+    "permission_id"
+  ]
+}

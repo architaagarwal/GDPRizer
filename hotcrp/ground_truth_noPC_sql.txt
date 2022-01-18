@@ -1,0 +1,17 @@
+SELECT * FROM ContactInfo WHERE contactId = ds_id;
+SELECT * FROM Paper WHERE leadContactId = ds_id
+SELECT * FROM PaperOption WHERE paperId IN (SELECT paperId FROM Paper WHERE leadContactId = ds_id);
+SELECT * FROM PaperComment WHERE contactId = ds_id;
+SELECT * FROM PaperConflict WHERE contactId = ds_id;
+SELECT * FROM PaperReview WHERE paperId IN (SELECT paperId FROM Paper WHERE leadContactId = ds_id);
+SELECT * FROM PaperReview WHERE contactId = ds_id;
+SELECT * FROM PaperReviewPreference WHERE contactId = ds_id;
+SELECT * FROM PaperReviewRefused WHERE contactId = ds_id;
+SELECT * FROM PaperReviewRefused WHERE requestedBy = ds_id;
+SELECT * FROM PaperTopic WHERE paperId IN (SELECT paperId FROM Paper WHERE leadContactId = ds_id);
+SELECT * FROM ReviewRating WHERE paperId IN (SELECT paperId FROM Paper WHERE leadContactId = ds_id);
+SELECT * FROM ReviewRating WHERE contactId = ds_id;
+SELECT * FROM ReviewRequest WHERE requestedBy = ds_id;
+SELECT * FROM TopicArea WHERE topicId IN (SELECT topicId FROM PaperTopic WHERE paperId IN (SELECT paperId FROM Paper WHERE leadContactId = ds_id));
+SELECT * FROM TopicInterest WHERE contactId = ds_id;
+SELECT * FROM TopicArea WHERE topicId IN (SELECT topicId FROM TopicInterest WHERE contactId = ds_id);

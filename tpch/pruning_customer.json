@@ -1,0 +1,10 @@
+{
+	"SUPPLIER": [
+      "S_SUPPKEY",
+      "S_NATIONKEY"
+    ],
+    "PARTSUPP" : [
+    	"PS_PARTKEY",
+    	"PS_SUPPKEY"
+    ]
+}

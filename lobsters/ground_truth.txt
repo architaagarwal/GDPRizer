@@ -1,0 +1,45 @@
+Q1: SELECT * FROM users WHERE id = ds_id
+
+Q2: SELECT * FROM stories WHERE user_id = ds_id
+
+Q3: SELECT * FROM comments WHERE id in {Q2.story_id}
+
+Q4: SELECT * FROM hats WHERE user_id = ds_id
+
+Q5: SELECT * FROM hats WHERE granted_by_user_id = ds_id
+
+Q6: SELECT * FROM comments WHERE user_id = ds_id
+
+Q7: SELECT * FROM domains WHERE banned_by_user_id = ds_id
+
+Q8: SELECT * FROM votes WHERE user_id = ds_id
+
+Q9: SELECT * FROM hat_requests WHERE user_id = ds_id
+
+Q10: SELECT * FROM messages WHERE author_user_id = ds_id
+
+Q11: SELECT * FROM messages WHERE recipient_user_id = ds_id
+
+Q12: SELECT * FROM mod_notes WHERE user_id = ds_id
+
+Q13: SELECT * FROM mod_notes WHERE moderator_user_id = ds_id
+
+Q14: SELECT * FROM hidden_stories WHERE user_id = ds_id
+
+Q15: SELECT * FROM read_ribbons WHERE user_id = ds_id
+
+Q16: SELECT * FROM saved_stories WHERE user_id = ds_id
+
+Q17: SELECT * FROM suggested_titles WHERE user_id = ds_id
+
+Q18: SELECT * FROM suggested_taggings WHERE user_id = ds_id
+
+Q19: SELECT * FROM moderations WHERE moderator_user_id = ds_id
+
+Q20: SELECT * FROM moderations WHERE user_id = ds_id
+
+Q21: SELECT * FROM tag_filters WHERE user_id = ds_id
+
+Q22: SELECT * FROM invitations WHERE user_id = ds_id
+
+Q23: SELECT * FROM invitations WHERE new_user_id = ds_id

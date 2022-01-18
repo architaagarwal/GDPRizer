@@ -1,0 +1,29 @@
+Q1: SELECT * FROM wp_users WHERE ID = ds_id
+
+Q2: SELECT * FROM wp_usermeta WHERE user_id IN {Q1.ID}
+
+Q3: SELECT * FROM wp_comments WHERE user_id = ds_id
+
+Q4: SELECT * FROM wp_commentmeta WHERE comment_id IN {Q3.comment_ID}
+
+Q5: SELECT * FROM wp_posts WHERE post_author = ds_id
+
+Q6: SELECT * FROM wp_postmeta WHERE post_id IN {Q5.ID}
+
+Q7: SELECT * FROM wp_wc_customer_lookup WHERE user_id = ds_id
+
+Q8: SELECT * FROM wp_wc_download_log WHERE user_id = ds_id
+
+Q9: SELECT * FROM wp_wc_order_product_lookup WHERE customer_id IN {Q7.customer_id}
+
+Q10: SELECT * FROM wp_wc_order_coupon_lookup WHERE order_id IN {Q9.order_id}
+
+Q11: SELECT * FROM wp_wc_order_stats WHERE customer_id IN {Q7.customer_id}
+
+Q12: SELECT * FROM wp_wc_webhooks WHERE user_id = ds_id
+
+Q13: SELECT * FROM wp_woocommerce_api_keys WHERE user_id = ds_id
+
+Q14: SELECT * FROM wp_woocommerce_downloadable_product_permissions WHERE user_id = ds_id
+
+Q15: SELECT * FROM wp_woocommerce_payment_tokens WHERE user_id = ds_id

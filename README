@@ -1,0 +1,53 @@
+* Project consists of three Python files:
+(1) cleanData.py 
+(2) graph.py
+(3) queryParser.py
+(3) parser.py
+
+In the following we use the TPCH application, the process can be repeated for any application similarly:
+- cleanData.py: this file does the following:
+	- It reads the query file ("querylog.csv"), cleans the queries, and writes the cleaned queries in a separate txt file ("clean_querylog.txt")
+	- It parses the schema file ("schema.sql") and writes the parsed schema in schema.json. We chose to write it in json because json can directly be read into a python dictionary.
+	- It reads the cleaned queries from "clean_querylog.txt", parses each one of them into json format using moz_sql_parser, and writes the json in "parsed_queries.json".
+
+- graph.py: this file constructs a "graph.txt" file with all the information necessary to construct the graph showing the foreign-key constraints. Visual representation of the graph can be constructed using Graphviz. 
+
+- queryParser.py: this file reads the parsed json queries from "parsed_queries.json" to infer the foreign-key constraints. 
+
+- parser.py: traverses the graph to pull out user information, compares it to the ground truth to compute precision and recall for each table. 
+In the main function, you have to specify the locations of schema json (schema.json), the parsed queries json (parsed_queries.json), the redaction json (redacted_tpch.json), the ground truth txt (ground_truth_sql.txt), and the virtual tables json (virtual_tables.json). 
+Given arguments primary table, primary key, and the starting id, the traverseLevels function will traverse the resulting graph. 
+The code assume that a MySQL server is running at port 3306 on localhost with the required database (and data) initialized.
+
+* Configuration and data files:
+(1) schema.sql: schema of the database
+(2) querylog.csv: query log from the run of the application
+(3) ground_truth_sql.txt: 
+	- Consists of sql queries to extract user-data from each table
+	- Used to compute efficiency (precision and recall) of our traversal algorithm 
+	- Format: One sql query on one line
+(4) redacted_tpch.json [optional]: 
+	- for each table, list the names of columns to be redacted
+	- if a column c is redacted, its values are scrubbed from the output, and all the edges incident on c are ignored during traversal
+	- Format: [{<t1>: [<c11>, <c12>], <t2>: [<c21>, <c22>, <c23>]}]
+	- if no redactions are to be done, set redactions_filename_json = "" in main()
+(5) virtual_tables.json [optional]:
+	- specifies a list of new columns to be added to each table
+	- also specifies *one* sql query to populate all the new columns of each table
+	- Format: {<t1>: {"v_columns": [[<vcol1>, <original_tablename>, <original_colname>], [<vcol2>, <original_tablename>, <original_colname>]], "query": <sql_query>}, <t2>: {...}}
+	- if no virtual tables are to be created, set vt_filename = "NONE" in main()
+
+* Libraries needed to run the project:
+(1) Python3
+(2) Graphviz
+(3) moz_sql_parser
+
+* How to run the project?
+(1) Run python3 cleanData.py (this takes a lot of time since it is parsing the queries)
+(2) Run python3 parser.py -- this automatically calls graph.py to generate the graph and outputs the precision and recall for each table. (this is very fast)
+(3) [Optional] Run dot -Tpdf graph.txt  -o graph.pdf (this generates the visual representation of join graph using Graphviz)
+
+* Note: You only need to run cleanData.py once! Once all the parsing is done, you can just make changes to parser.py and graph.py without spending a lot of time re-generating the same parsed queries. Of course, if you change your queries, then you need to re-run cleanData.py again.
+
+
+

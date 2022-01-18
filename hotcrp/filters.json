@@ -1,0 +1,100 @@
+{
+    "ActionLog": [
+      "contactId",
+      "timestamp",
+      "data",
+      "action",
+      "logId",
+      "destContactId",
+      "paperId",
+      "trueContactId",
+      "ipaddr"
+    ],
+    "Capability": [
+      "contactId",
+      "data",
+      "timeExpires",
+      "salt",
+      "capabilityType",
+      "paperId"
+    ],
+    "DeletedContactInfo": [
+      "contactId",
+      "lastName",
+      "unaccentedName",
+      "firstName",
+      "email"
+    ],
+    "DocumentLink": [
+      "linkType",
+      "documentId",
+      "linkId",
+      "paperId"
+    ],
+    "FilteredDocument": [
+      "createdAt",
+      "outDocId",
+      "inDocId",
+      "filterType"
+    ],
+    "Formula": [
+      "formulaId",
+      "createdBy",
+      "timeModified",
+      "name",
+      "expression"
+    ],
+    "MailLog": [
+      "q",
+      "emailBody",
+      "replyto",
+      "recipients",
+      "fromNonChair",
+      "cc",
+      "t",
+      "mailId",
+      "paperIds",
+      "subject",
+      "status"
+    ],
+  "PaperStorage": [
+      "timestamp",
+      "paper",
+      "sha1",
+      "crc32",
+      "documentType",
+      "mimetype",
+      "infoJson",
+      "filterType",
+      "originalStorageId",
+      "inactive",
+      "paperStorageId",
+      "filename",
+      "size",
+      "compression",
+      "paperId"
+    ],
+    "PaperTag": [
+      "tagIndex",
+      "paperId",
+      "tag"
+    ],
+    "PaperTagAnno": [
+      "annoId",
+      "heading",
+      "infoJson",
+      "annoFormat",
+      "tag",
+      "tagIndex"
+    ],
+  "PaperWatch": [
+      "contactId",
+      "paperId",
+      "watch"
+    ],
+  "Settings": [
+      "value",
+      "data",
+      "name"
+    ]
+}

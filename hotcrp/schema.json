@@ -1,0 +1,790 @@
+[
+  {
+    "ActionLog": [
+      "logId",
+      "contactId",
+      "destContactId",
+      "trueContactId",
+      "paperId",
+      "timestamp",
+      "ipaddr",
+      "action",
+      "data"
+    ],
+    "Capability": [
+      "capabilityType",
+      "contactId",
+      "paperId",
+      "timeExpires",
+      "salt",
+      "data"
+    ],
+    "ContactInfo": [
+      "contactId",
+      "firstName",
+      "lastName",
+      "unaccentedName",
+      "email",
+      "preferredEmail",
+      "affiliation",
+      "phone",
+      "country",
+      "password",
+      "passwordTime",
+      "passwordUseTime",
+      "collaborators",
+      "creationTime",
+      "updateTime",
+      "lastLogin",
+      "defaultWatch",
+      "roles",
+      "disabled",
+      "contactTags",
+      "birthday",
+      "gender",
+      "data"
+    ],
+    "DeletedContactInfo": [
+      "contactId",
+      "firstName",
+      "lastName",
+      "unaccentedName",
+      "email"
+    ],
+    "DocumentLink": [
+      "paperId",
+      "linkId",
+      "linkType",
+      "documentId"
+    ],
+    "FilteredDocument": [
+      "inDocId",
+      "filterType",
+      "outDocId",
+      "createdAt"
+    ],
+    "Formula": [
+      "formulaId",
+      "name",
+      "expression",
+      "createdBy",
+      "timeModified"
+    ],
+    "MailLog": [
+      "mailId",
+      "recipients",
+      "q",
+      "t",
+      "paperIds",
+      "cc",
+      "replyto",
+      "subject",
+      "emailBody",
+      "fromNonChair",
+      "status"
+    ],
+    "Paper": [
+      "paperId",
+      "title",
+      "authorInformation",
+      "abstract",
+      "collaborators",
+      "timeSubmitted",
+      "timeWithdrawn",
+      "timeFinalSubmitted",
+      "timeModified",
+      "paperStorageId",
+      "sha1",
+      "finalPaperStorageId",
+      "blind",
+      "outcome",
+      "leadContactId",
+      "shepherdContactId",
+      "managerContactId",
+      "capVersion",
+      "size",
+      "mimetype",
+      "timestamp",
+      "pdfFormatStatus",
+      "withdrawReason",
+      "paperFormat",
+      "dataOverflow"
+    ],
+    "PaperComment": [
+      "paperId",
+      "commentId",
+      "contactId",
+      "timeModified",
+      "timeNotified",
+      "timeDisplayed",
+      "comment",
+      "commentType",
+      "replyTo",
+      "ordinal",
+      "authorOrdinal",
+      "commentTags",
+      "commentRound",
+      "commentFormat",
+      "commentOverflow"
+    ],
+    "PaperConflict": [
+      "paperId",
+      "contactId",
+      "conflictType"
+    ],
+    "PaperOption": [
+      "paperId",
+      "optionId",
+      "value",
+      "data",
+      "dataOverflow"
+    ],
+    "PaperReview": [
+      "paperId",
+      "reviewId",
+      "contactId",
+      "reviewToken",
+      "reviewType",
+      "reviewRound",
+      "requestedBy",
+      "timeRequested",
+      "timeRequestNotified",
+      "reviewBlind",
+      "reviewModified",
+      "reviewAuthorModified",
+      "reviewSubmitted",
+      "reviewNotified",
+      "reviewAuthorNotified",
+      "reviewAuthorSeen",
+      "reviewOrdinal",
+      "reviewViewScore",
+      "timeDisplayed",
+      "timeApprovalRequested",
+      "reviewEditVersion",
+      "reviewNeedsSubmit",
+      "reviewWordCount",
+      "reviewFormat",
+      "overAllMerit",
+      "reviewerQualification",
+      "novelty",
+      "technicalMerit",
+      "interestToCommunity",
+      "longevity",
+      "grammar",
+      "likelyPresentation",
+      "suitableForShort",
+      "potential",
+      "fixability",
+      "tfields",
+      "sfields",
+      "data"
+    ],
+    "PaperReviewPreference": [
+      "paperId",
+      "contactId",
+      "preference",
+      "expertise"
+    ],
+    "PaperReviewRefused": [
+      "paperId",
+      "email",
+      "firstName",
+      "lastName",
+      "affiliation",
+      "contactId",
+      "requestedBy",
+      "timeRequested",
+      "refusedBy",
+      "timeRefused",
+      "reviewType",
+      "reviewRound",
+      "data",
+      "reason"
+    ],
+    "PaperStorage": [
+      "paperId",
+      "paperStorageId",
+      "timestamp",
+      "mimetype",
+      "paper",
+      "compression",
+      "sha1",
+      "crc32",
+      "documentType",
+      "filename",
+      "infoJson",
+      "size",
+      "filterType",
+      "originalStorageId",
+      "inactive"
+    ],
+    "PaperTag": [
+      "paperId",
+      "tag",
+      "tagIndex"
+    ],
+    "PaperTagAnno": [
+      "tag",
+      "annoId",
+      "tagIndex",
+      "heading",
+      "annoFormat",
+      "infoJson"
+    ],
+    "PaperTopic": [
+      "paperId",
+      "topicId"
+    ],
+    "PaperWatch": [
+      "paperId",
+      "contactId",
+      "watch"
+    ],
+    "ReviewRating": [
+      "paperId",
+      "reviewId",
+      "contactId",
+      "rating"
+    ],
+    "ReviewRequest": [
+      "paperId",
+      "email",
+      "firstName",
+      "lastName",
+      "affiliation",
+      "reason",
+      "requestedBy",
+      "timeRequested",
+      "reviewRound"
+    ],
+    "Settings": [
+      "name",
+      "value",
+      "data"
+    ],
+    "TopicArea": [
+      "topicId",
+      "topicName"
+    ],
+    "TopicInterest": [
+      "contactId",
+      "topicId",
+      "interest"
+    ]
+  },
+  {
+    "logId": "ActionLog",
+    "destContactId": "ActionLog",
+    "trueContactId": "ActionLog",
+    "ipaddr": "ActionLog",
+    "action": "ActionLog",
+    "capabilityType": "Capability",
+    "timeExpires": "Capability",
+    "salt": "Capability",
+    "preferredEmail": "ContactInfo",
+    "phone": "ContactInfo",
+    "country": "ContactInfo",
+    "password": "ContactInfo",
+    "passwordTime": "ContactInfo",
+    "passwordUseTime": "ContactInfo",
+    "creationTime": "ContactInfo",
+    "updateTime": "ContactInfo",
+    "lastLogin": "ContactInfo",
+    "defaultWatch": "ContactInfo",
+    "roles": "ContactInfo",
+    "disabled": "ContactInfo",
+    "contactTags": "ContactInfo",
+    "birthday": "ContactInfo",
+    "gender": "ContactInfo",
+    "linkId": "DocumentLink",
+    "linkType": "DocumentLink",
+    "documentId": "DocumentLink",
+    "inDocId": "FilteredDocument",
+    "outDocId": "FilteredDocument",
+    "createdAt": "FilteredDocument",
+    "formulaId": "Formula",
+    "expression": "Formula",
+    "createdBy": "Formula",
+    "mailId": "MailLog",
+    "recipients": "MailLog",
+    "q": "MailLog",
+    "t": "MailLog",
+    "paperIds": "MailLog",
+    "cc": "MailLog",
+    "replyto": "MailLog",
+    "subject": "MailLog",
+    "emailBody": "MailLog",
+    "fromNonChair": "MailLog",
+    "status": "MailLog",
+    "title": "Paper",
+    "authorInformation": "Paper",
+    "abstract": "Paper",
+    "timeSubmitted": "Paper",
+    "timeWithdrawn": "Paper",
+    "timeFinalSubmitted": "Paper",
+    "finalPaperStorageId": "Paper",
+    "blind": "Paper",
+    "outcome": "Paper",
+    "leadContactId": "Paper",
+    "shepherdContactId": "Paper",
+    "managerContactId": "Paper",
+    "capVersion": "Paper",
+    "pdfFormatStatus": "Paper",
+    "withdrawReason": "Paper",
+    "paperFormat": "Paper",
+    "commentId": "PaperComment",
+    "timeNotified": "PaperComment",
+    "comment": "PaperComment",
+    "commentType": "PaperComment",
+    "replyTo": "PaperComment",
+    "ordinal": "PaperComment",
+    "authorOrdinal": "PaperComment",
+    "commentTags": "PaperComment",
+    "commentRound": "PaperComment",
+    "commentFormat": "PaperComment",
+    "commentOverflow": "PaperComment",
+    "conflictType": "PaperConflict",
+    "optionId": "PaperOption",
+    "reviewToken": "PaperReview",
+    "timeRequestNotified": "PaperReview",
+    "reviewBlind": "PaperReview",
+    "reviewModified": "PaperReview",
+    "reviewAuthorModified": "PaperReview",
+    "reviewSubmitted": "PaperReview",
+    "reviewNotified": "PaperReview",
+    "reviewAuthorNotified": "PaperReview",
+    "reviewAuthorSeen": "PaperReview",
+    "reviewOrdinal": "PaperReview",
+    "reviewViewScore": "PaperReview",
+    "timeApprovalRequested": "PaperReview",
+    "reviewEditVersion": "PaperReview",
+    "reviewNeedsSubmit": "PaperReview",
+    "reviewWordCount": "PaperReview",
+    "reviewFormat": "PaperReview",
+    "overAllMerit": "PaperReview",
+    "reviewerQualification": "PaperReview",
+    "novelty": "PaperReview",
+    "technicalMerit": "PaperReview",
+    "interestToCommunity": "PaperReview",
+    "longevity": "PaperReview",
+    "grammar": "PaperReview",
+    "likelyPresentation": "PaperReview",
+    "suitableForShort": "PaperReview",
+    "potential": "PaperReview",
+    "fixability": "PaperReview",
+    "tfields": "PaperReview",
+    "sfields": "PaperReview",
+    "preference": "PaperReviewPreference",
+    "expertise": "PaperReviewPreference",
+    "refusedBy": "PaperReviewRefused",
+    "timeRefused": "PaperReviewRefused",
+    "paper": "PaperStorage",
+    "compression": "PaperStorage",
+    "crc32": "PaperStorage",
+    "documentType": "PaperStorage",
+    "filename": "PaperStorage",
+    "originalStorageId": "PaperStorage",
+    "inactive": "PaperStorage",
+    "annoId": "PaperTagAnno",
+    "heading": "PaperTagAnno",
+    "annoFormat": "PaperTagAnno",
+    "watch": "PaperWatch",
+    "rating": "ReviewRating",
+    "topicName": "TopicArea",
+    "interest": "TopicInterest"
+  },
+  {
+    "ActionLog": [
+      "logId"
+    ],
+    "Capability": [
+      "salt"
+    ],
+    "ContactInfo": [
+      "contactId"
+    ],
+    "DeletedContactInfo": [],
+    "DocumentLink": [
+      "paperId",
+      "linkId",
+      "linkType"
+    ],
+    "FilteredDocument": [
+      "inDocId",
+      "filterType"
+    ],
+    "Formula": [
+      "formulaId"
+    ],
+    "MailLog": [
+      "mailId"
+    ],
+    "Paper": [
+      "paperId"
+    ],
+    "PaperComment": [
+      "paperId",
+      "commentId"
+    ],
+    "PaperConflict": [
+      "contactId",
+      "paperId"
+    ],
+    "PaperOption": [
+      "paperId",
+      "optionId",
+      "value"
+    ],
+    "PaperReview": [
+      "paperId",
+      "reviewId"
+    ],
+    "PaperReviewPreference": [
+      "paperId",
+      "contactId"
+    ],
+    "PaperReviewRefused": [
+      "paperId",
+      "email"
+    ],
+    "PaperStorage": [
+      "paperId",
+      "paperStorageId"
+    ],
+    "PaperTag": [
+      "paperId",
+      "tag"
+    ],
+    "PaperTagAnno": [
+      "tag",
+      "annoId"
+    ],
+    "PaperTopic": [
+      "paperId",
+      "topicId"
+    ],
+    "PaperWatch": [
+      "paperId",
+      "contactId"
+    ],
+    "ReviewRating": [
+      "paperId",
+      "reviewId",
+      "contactId"
+    ],
+    "ReviewRequest": [
+      "paperId",
+      "email"
+    ],
+    "Settings": [
+      "name"
+    ],
+    "TopicArea": [
+      "topicId"
+    ],
+    "TopicInterest": [
+      "contactId",
+      "topicId"
+    ]
+  },
+  {
+    "ActionLog": [],
+    "Capability": [],
+    "ContactInfo": [],
+    "DeletedContactInfo": [],
+    "DocumentLink": [],
+    "FilteredDocument": [],
+    "Formula": [],
+    "MailLog": [],
+    "Paper": [],
+    "PaperComment": [],
+    "PaperConflict": [],
+    "PaperOption": [],
+    "PaperReview": [],
+    "PaperReviewPreference": [],
+    "PaperReviewRefused": [],
+    "PaperStorage": [],
+    "PaperTag": [],
+    "PaperTagAnno": [],
+    "PaperTopic": [],
+    "PaperWatch": [],
+    "ReviewRating": [],
+    "ReviewRequest": [],
+    "Settings": [],
+    "TopicArea": [],
+    "TopicInterest": []
+  },
+  {
+    "ActionLog": {
+      "logId": "int(11)",
+      "contactId": "int(11)",
+      "destContactId": "int(11)",
+      "trueContactId": "int(11)",
+      "paperId": "int(11)",
+      "timestamp": "bigint(11)",
+      "ipaddr": "varbinary(39)",
+      "action": "varbinary(4096)",
+      "data": "varbinary(8192)"
+    },
+    "Capability": {
+      "capabilityType": "int(11)",
+      "contactId": "int(11)",
+      "paperId": "int(11)",
+      "timeExpires": "bigint(11)",
+      "salt": "varbinary(255)",
+      "data": "varbinary(4096)"
+    },
+    "ContactInfo": {
+      "contactId": "int(11)",
+      "firstName": "varbinary(120)",
+      "lastName": "varbinary(120)",
+      "unaccentedName": "varbinary(240)",
+      "email": "varchar(120)",
+      "preferredEmail": "varchar(120)",
+      "affiliation": "varbinary(2048)",
+      "phone": "varbinary(64)",
+      "country": "varbinary(256)",
+      "password": "varbinary(2048)",
+      "passwordTime": "bigint(11)",
+      "passwordUseTime": "bigint(11)",
+      "collaborators": "varbinary(8192)",
+      "creationTime": "bigint(11)",
+      "updateTime": "bigint(11)",
+      "lastLogin": "bigint(11)",
+      "defaultWatch": "int(11)",
+      "roles": "tinyint(1)",
+      "disabled": "tinyint(1)",
+      "contactTags": "varbinary(4096)",
+      "birthday": "int(11)",
+      "gender": "varbinary(24)",
+      "data": "varbinary(32767)"
+    },
+    "DeletedContactInfo": {
+      "contactId": "int(11)",
+      "firstName": "varbinary(120)",
+      "lastName": "varbinary(120)",
+      "unaccentedName": "varbinary(240)",
+      "email": "varchar(120)"
+    },
+    "DocumentLink": {
+      "paperId": "int(11)",
+      "linkId": "int(11)",
+      "linkType": "int(11)",
+      "documentId": "int(11)"
+    },
+    "FilteredDocument": {
+      "inDocId": "int(11)",
+      "filterType": "int(11)",
+      "outDocId": "int(11)",
+      "createdAt": "bigint(11)"
+    },
+    "Formula": {
+      "formulaId": "int(11)",
+      "name": "varchar(200)",
+      "expression": "varbinary(4096)",
+      "createdBy": "int(11)",
+      "timeModified": "bigint(11)"
+    },
+    "MailLog": {
+      "mailId": "int(11)",
+      "recipients": "varbinary(200)",
+      "q": "varbinary(4096)",
+      "t": "varbinary(200)",
+      "paperIds": "blob",
+      "cc": "blob",
+      "replyto": "blob",
+      "subject": "blob",
+      "emailBody": "blob",
+      "fromNonChair": "tinyint(1)",
+      "status": "tinyint(1)"
+    },
+    "Paper": {
+      "paperId": "int(11)",
+      "title": "varbinary(512)",
+      "authorInformation": "varbinary(8192)",
+      "abstract": "varbinary(16384)",
+      "collaborators": "varbinary(8192)",
+      "timeSubmitted": "bigint(11)",
+      "timeWithdrawn": "bigint(11)",
+      "timeFinalSubmitted": "bigint(11)",
+      "timeModified": "bigint(11)",
+      "paperStorageId": "int(11)",
+      "sha1": "varbinary(64)",
+      "finalPaperStorageId": "int(11)",
+      "blind": "tinyint(1)",
+      "outcome": "tinyint(1)",
+      "leadContactId": "int(11)",
+      "shepherdContactId": "int(11)",
+      "managerContactId": "int(11)",
+      "capVersion": "int(1)",
+      "size": "int(11)",
+      "mimetype": "varbinary(80)",
+      "timestamp": "bigint(11)",
+      "pdfFormatStatus": "bigint(11)",
+      "withdrawReason": "varbinary(1024)",
+      "paperFormat": "tinyint(1)",
+      "dataOverflow": "longblob"
+    },
+    "PaperComment": {
+      "paperId": "int(11)",
+      "commentId": "int(11)",
+      "contactId": "int(11)",
+      "timeModified": "bigint(11)",
+      "timeNotified": "bigint(11)",
+      "timeDisplayed": "bigint(11)",
+      "comment": "varbinary(32767)",
+      "commentType": "int(11)",
+      "replyTo": "int(11)",
+      "ordinal": "int(11)",
+      "authorOrdinal": "int(11)",
+      "commentTags": "varbinary(1024)",
+      "commentRound": "int(11)",
+      "commentFormat": "tinyint(1)",
+      "commentOverflow": "longblob"
+    },
+    "PaperConflict": {
+      "paperId": "int(11)",
+      "contactId": "int(11)",
+      "conflictType": "tinyint(1)"
+    },
+    "PaperOption": {
+      "paperId": "int(11)",
+      "optionId": "int(11)",
+      "value": "bigint(11)",
+      "data": "varbinary(32767)",
+      "dataOverflow": "longblob"
+    },
+    "PaperReview": {
+      "paperId": "int(11)",
+      "reviewId": "int(11)",
+      "contactId": "int(11)",
+      "reviewToken": "int(11)",
+      "reviewType": "tinyint(1)",
+      "reviewRound": "int(1)",
+      "requestedBy": "int(11)",
+      "timeRequested": "bigint(11)",
+      "timeRequestNotified": "bigint(11)",
+      "reviewBlind": "tinyint(1)",
+      "reviewModified": "bigint(1)",
+      "reviewAuthorModified": "bigint(1)",
+      "reviewSubmitted": "bigint(1)",
+      "reviewNotified": "bigint(1)",
+      "reviewAuthorNotified": "bigint(11)",
+      "reviewAuthorSeen": "bigint(1)",
+      "reviewOrdinal": "int(1)",
+      "reviewViewScore": "tinyint(2)",
+      "timeDisplayed": "bigint(11)",
+      "timeApprovalRequested": "bigint(11)",
+      "reviewEditVersion": "int(1)",
+      "reviewNeedsSubmit": "tinyint(1)",
+      "reviewWordCount": "int(11)",
+      "reviewFormat": "tinyint(1)",
+      "overAllMerit": "tinyint(1)",
+      "reviewerQualification": "tinyint(1)",
+      "novelty": "tinyint(1)",
+      "technicalMerit": "tinyint(1)",
+      "interestToCommunity": "tinyint(1)",
+      "longevity": "tinyint(1)",
+      "grammar": "tinyint(1)",
+      "likelyPresentation": "tinyint(1)",
+      "suitableForShort": "tinyint(1)",
+      "potential": "tinyint(4)",
+      "fixability": "tinyint(4)",
+      "tfields": "longblob",
+      "sfields": "varbinary(2048)",
+      "data": "varbinary(8192)"
+    },
+    "PaperReviewPreference": {
+      "paperId": "int(11)",
+      "contactId": "int(11)",
+      "preference": "int(4)",
+      "expertise": "int(4)"
+    },
+    "PaperReviewRefused": {
+      "paperId": "int(11)",
+      "email": "varchar(120)",
+      "firstName": "varbinary(120)",
+      "lastName": "varbinary(120)",
+      "affiliation": "varbinary(2048)",
+      "contactId": "int(11)",
+      "requestedBy": "int(11)",
+      "timeRequested": "bigint(11)",
+      "refusedBy": "int(11)",
+      "timeRefused": "bigint(11)",
+      "reviewType": "tinyint(1)",
+      "reviewRound": "int(1)",
+      "data": "varbinary(8192)",
+      "reason": "varbinary(32767)"
+    },
+    "PaperStorage": {
+      "paperId": "int(11)",
+      "paperStorageId": "int(11)",
+      "timestamp": "bigint(11)",
+      "mimetype": "varbinary(80)",
+      "paper": "longblob",
+      "compression": "tinyint(1)",
+      "sha1": "varbinary(64)",
+      "crc32": "binary(4)",
+      "documentType": "int(3)",
+      "filename": "varbinary(255)",
+      "infoJson": "varbinary(32768)",
+      "size": "bigint(11)",
+      "filterType": "int(3)",
+      "originalStorageId": "int(11)",
+      "inactive": "tinyint(1)"
+    },
+    "PaperTag": {
+      "paperId": "int(11)",
+      "tag": "varchar(80)",
+      "tagIndex": "float"
+    },
+    "PaperTagAnno": {
+      "tag": "varchar(80)",
+      "annoId": "int(11)",
+      "tagIndex": "float",
+      "heading": "varbinary(8192)",
+      "annoFormat": "tinyint(1)",
+      "infoJson": "varbinary(32768)"
+    },
+    "PaperTopic": {
+      "paperId": "int(11)",
+      "topicId": "int(11)"
+    },
+    "PaperWatch": {
+      "paperId": "int(11)",
+      "contactId": "int(11)",
+      "watch": "int(11)"
+    },
+    "ReviewRating": {
+      "paperId": "int(11)",
+      "reviewId": "int(11)",
+      "contactId": "int(11)",
+      "rating": "tinyint(1)"
+    },
+    "ReviewRequest": {
+      "paperId": "int(11)",
+      "email": "varchar(120)",
+      "firstName": "varbinary(120)",
+      "lastName": "varbinary(120)",
+      "affiliation": "varbinary(2048)",
+      "reason": "varbinary(32767)",
+      "requestedBy": "int(11)",
+      "timeRequested": "bigint(11)",
+      "reviewRound": "int(1)"
+    },
+    "Settings": {
+      "name": "varbinary(256)",
+      "value": "bigint(11)",
+      "data": "varbinary(32767)"
+    },
+    "TopicArea": {
+      "topicId": "int(11)",
+      "topicName": "varbinary(1024)"
+    },
+    "TopicInterest": {
+      "contactId": "int(11)",
+      "topicId": "int(11)",
+      "interest": "int(1)"
+    }
+  }
+]

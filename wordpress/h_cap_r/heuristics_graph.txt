@@ -1,0 +1,43 @@
+graph G {subgraph cluster_0{
+	label="WP_COMMENTMETA";
+	}
+subgraph cluster_1{
+	label="WP_COMMENTS";
+	WP_COMMENTS_USER_ID [label = "USER_ID"];
+	}
+subgraph cluster_2{
+	label="WP_LINKS";
+	}
+subgraph cluster_3{
+	label="WP_OPTIONS";
+	}
+subgraph cluster_4{
+	label="WP_POSTMETA";
+	}
+subgraph cluster_5{
+	label="WP_POSTS";
+	}
+subgraph cluster_6{
+	label="WP_TERM_RELATIONSHIPS";
+	}
+subgraph cluster_7{
+	label="WP_TERM_TAXONOMY";
+	WP_TERM_TAXONOMY_TERM_TAXONOMY_ID [label = "TERM_TAXONOMY_ID"];
+	WP_TERM_TAXONOMY_TERM_ID [label = "TERM_ID"];
+	}
+subgraph cluster_8{
+	label="WP_TERMMETA";
+	}
+subgraph cluster_9{
+	label="WP_TERMS";
+	WP_TERMS_TERM_ID [label = "TERM_ID"];
+	}
+subgraph cluster_10{
+	label="WP_USERMETA";
+	WP_USERMETA_USER_ID [label = "USER_ID"];
+	}
+subgraph cluster_11{
+	label="WP_USERS";
+	}WP_COMMENTS_USER_ID -- WP_USERMETA_USER_ID
+WP_TERMS_TERM_ID -- WP_TERM_TAXONOMY_TERM_TAXONOMY_ID
+WP_TERMS_TERM_ID -- WP_TERM_TAXONOMY_TERM_ID}

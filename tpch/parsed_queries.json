@@ -1,0 +1,2381 @@
+[
+  {
+    "select": [
+      {
+        "value": "L_RETURNFLAG"
+      },
+      {
+        "value": "L_LINESTATUS"
+      },
+      {
+        "value": {
+          "sum": "L_QUANTITY"
+        },
+        "name": "SUM_QTY"
+      },
+      {
+        "value": {
+          "sum": "L_EXTENDEDPRICE"
+        },
+        "name": "SUM_BASE_PRICE"
+      },
+      {
+        "value": {
+          "sum": {
+            "mul": [
+              "L_EXTENDEDPRICE",
+              {
+                "sub": [
+                  1,
+                  "L_DISCOUNT"
+                ]
+              }
+            ]
+          }
+        },
+        "name": "SUM_DISC_PRICE"
+      },
+      {
+        "value": {
+          "sum": {
+            "mul": [
+              "L_EXTENDEDPRICE",
+              {
+                "sub": [
+                  1,
+                  "L_DISCOUNT"
+                ]
+              },
+              {
+                "add": [
+                  1,
+                  "L_TAX"
+                ]
+              }
+            ]
+          }
+        },
+        "name": "SUM_CHARGE"
+      },
+      {
+        "value": {
+          "avg": "L_QUANTITY"
+        },
+        "name": "AVG_QTY"
+      },
+      {
+        "value": {
+          "avg": "L_EXTENDEDPRICE"
+        },
+        "name": "AVG_PRICE"
+      },
+      {
+        "value": {
+          "avg": "L_DISCOUNT"
+        },
+        "name": "AVG_DISC"
+      },
+      {
+        "value": {
+          "count": "*"
+        },
+        "name": "COUNT_ORDER"
+      }
+    ],
+    "from": "LINEITEM",
+    "where": {
+      "lte": [
+        "L_SHIPDATE",
+        {
+          "date": {
+            "literal": "1998-12-01"
+          }
+        }
+      ]
+    },
+    "groupby": [
+      {
+        "value": "L_RETURNFLAG"
+      },
+      {
+        "value": "L_LINESTATUS"
+      }
+    ],
+    "orderby": [
+      {
+        "value": "L_RETURNFLAG"
+      },
+      {
+        "value": "L_LINESTATUS"
+      }
+    ]
+  },
+  {
+    "select": [
+      {
+        "value": "C_CUSTKEY"
+      },
+      {
+        "value": "C_NAME"
+      },
+      {
+        "value": {
+          "sum": {
+            "mul": [
+              "L_EXTENDEDPRICE",
+              {
+                "sub": [
+                  1,
+                  "L_DISCOUNT"
+                ]
+              }
+            ]
+          }
+        },
+        "name": "REVENUE"
+      },
+      {
+        "value": "C_ACCTBAL"
+      },
+      {
+        "value": "N_NAME"
+      },
+      {
+        "value": "C_ADDRESS"
+      },
+      {
+        "value": "C_PHONE"
+      },
+      {
+        "value": "C_COMMENT"
+      }
+    ],
+    "from": [
+      "CUSTOMER",
+      "ORDERS",
+      "LINEITEM",
+      "NATION"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "C_CUSTKEY",
+            "O_CUSTKEY"
+          ]
+        },
+        {
+          "eq": [
+            "L_ORDERKEY",
+            "O_ORDERKEY"
+          ]
+        },
+        {
+          "gte": [
+            "O_ORDERDATE",
+            {
+              "date": {
+                "literal": "1993-08-01"
+              }
+            }
+          ]
+        },
+        {
+          "lt": [
+            "O_ORDERDATE",
+            {
+              "date": {
+                "literal": "1993-08-01"
+              }
+            }
+          ]
+        },
+        {
+          "eq": [
+            "L_RETURNFLAG",
+            {
+              "literal": "R"
+            }
+          ]
+        },
+        {
+          "eq": [
+            "C_NATIONKEY",
+            "N_NATIONKEY"
+          ]
+        }
+      ]
+    },
+    "groupby": [
+      {
+        "value": "C_CUSTKEY"
+      },
+      {
+        "value": "C_NAME"
+      },
+      {
+        "value": "C_ACCTBAL"
+      },
+      {
+        "value": "C_PHONE"
+      },
+      {
+        "value": "N_NAME"
+      },
+      {
+        "value": "C_ADDRESS"
+      },
+      {
+        "value": "C_COMMENT"
+      }
+    ],
+    "orderby": {
+      "value": "REVENUE",
+      "sort": "desc"
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "PS_PARTKEY"
+      },
+      {
+        "value": {
+          "sum": {
+            "mul": [
+              "PS_SUPPLYCOST",
+              "PS_AVAILQTY"
+            ]
+          }
+        },
+        "name": "VALUE"
+      }
+    ],
+    "from": [
+      "PARTSUPP",
+      "SUPPLIER",
+      "NATION"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "PS_SUPPKEY",
+            "S_SUPPKEY"
+          ]
+        },
+        {
+          "eq": [
+            "S_NATIONKEY",
+            "N_NATIONKEY"
+          ]
+        },
+        {
+          "eq": [
+            "N_NAME",
+            {
+              "literal": "MOZAMBIQUE"
+            }
+          ]
+        }
+      ]
+    },
+    "groupby": {
+      "value": "PS_PARTKEY"
+    },
+    "having": {
+      "gt": [
+        {
+          "sum": {
+            "mul": [
+              "PS_SUPPLYCOST",
+              "PS_AVAILQTY"
+            ]
+          }
+        },
+        {
+          "select": {
+            "value": {
+              "mul": [
+                {
+                  "sum": {
+                    "mul": [
+                      "PS_SUPPLYCOST",
+                      "PS_AVAILQTY"
+                    ]
+                  }
+                },
+                0.0001
+              ]
+            }
+          },
+          "from": [
+            "PARTSUPP",
+            "SUPPLIER",
+            "NATION"
+          ],
+          "where": {
+            "and": [
+              {
+                "eq": [
+                  "PS_SUPPKEY",
+                  "S_SUPPKEY"
+                ]
+              },
+              {
+                "eq": [
+                  "S_NATIONKEY",
+                  "N_NATIONKEY"
+                ]
+              },
+              {
+                "eq": [
+                  "N_NAME",
+                  {
+                    "literal": "MOZAMBIQUE"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "orderby": {
+      "value": "VALUE",
+      "sort": "desc"
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "L_SHIPMODE"
+      },
+      {
+        "value": {
+          "sum": {
+            "case": [
+              {
+                "when": {
+                  "or": [
+                    {
+                      "eq": [
+                        "O_ORDERPRIORITY",
+                        {
+                          "literal": "1-URGENT"
+                        }
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "O_ORDERPRIORITY",
+                        {
+                          "literal": "2-HIGH"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "then": 1
+              },
+              0
+            ]
+          }
+        },
+        "name": "HIGH_LINE_COUNT"
+      },
+      {
+        "value": {
+          "sum": {
+            "case": [
+              {
+                "when": {
+                  "and": [
+                    {
+                      "neq": [
+                        "O_ORDERPRIORITY",
+                        {
+                          "literal": "1-URGENT"
+                        }
+                      ]
+                    },
+                    {
+                      "neq": [
+                        "O_ORDERPRIORITY",
+                        {
+                          "literal": "2-HIGH"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "then": 1
+              },
+              0
+            ]
+          }
+        },
+        "name": "LOW_LINE_COUNT"
+      }
+    ],
+    "from": [
+      "ORDERS",
+      "LINEITEM"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "O_ORDERKEY",
+            "L_ORDERKEY"
+          ]
+        },
+        {
+          "in": [
+            "L_SHIPMODE",
+            {
+              "literal": [
+                "RAIL",
+                "FOB"
+              ]
+            }
+          ]
+        },
+        {
+          "lt": [
+            "L_COMMITDATE",
+            "L_RECEIPTDATE"
+          ]
+        },
+        {
+          "lt": [
+            "L_SHIPDATE",
+            "L_COMMITDATE"
+          ]
+        },
+        {
+          "gte": [
+            "L_RECEIPTDATE",
+            {
+              "date": {
+                "literal": "1997-01-01"
+              }
+            }
+          ]
+        },
+        {
+          "lt": [
+            "L_RECEIPTDATE",
+            {
+              "date": {
+                "literal": "1997-01-01"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "groupby": {
+      "value": "L_SHIPMODE"
+    },
+    "orderby": {
+      "value": "L_SHIPMODE"
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "C_COUNT"
+      },
+      {
+        "value": {
+          "count": "*"
+        },
+        "name": "CUSTDIST"
+      }
+    ],
+    "from": {
+      "value": {
+        "select": [
+          {
+            "value": "C_CUSTKEY"
+          },
+          {
+            "value": {
+              "count": "O_ORDERKEY"
+            },
+            "name": "C_COUNT"
+          }
+        ],
+        "from": [
+          "CUSTOMER",
+          {
+            "left outer join": "ORDERS",
+            "on": {
+              "and": [
+                {
+                  "eq": [
+                    "C_CUSTKEY",
+                    "O_CUSTKEY"
+                  ]
+                },
+                {
+                  "not_like": [
+                    "O_COMMENT",
+                    {
+                      "literal": "%PENDING%DEPOSITS%"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "groupby": {
+          "value": "C_CUSTKEY"
+        }
+      },
+      "name": "C_ORDERS"
+    },
+    "groupby": {
+      "value": "C_COUNT"
+    },
+    "orderby": [
+      {
+        "value": "CUSTDIST",
+        "sort": "desc"
+      },
+      {
+        "value": "C_COUNT",
+        "sort": "desc"
+      }
+    ]
+  },
+  {
+    "select": {
+      "value": {
+        "div": [
+          {
+            "mul": [
+              100.0,
+              {
+                "sum": {
+                  "case": [
+                    {
+                      "when": {
+                        "like": [
+                          "P_TYPE",
+                          {
+                            "literal": "PROMO%"
+                          }
+                        ]
+                      },
+                      "then": {
+                        "mul": [
+                          "L_EXTENDEDPRICE",
+                          {
+                            "sub": [
+                              1,
+                              "L_DISCOUNT"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    0
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "sum": {
+              "mul": [
+                "L_EXTENDEDPRICE",
+                {
+                  "sub": [
+                    1,
+                    "L_DISCOUNT"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "name": "PROMO_REVENUE"
+    },
+    "from": [
+      "LINEITEM",
+      "PART"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "L_PARTKEY",
+            "P_PARTKEY"
+          ]
+        },
+        {
+          "gte": [
+            "L_SHIPDATE",
+            {
+              "date": {
+                "literal": "1996-12-01"
+              }
+            }
+          ]
+        },
+        {
+          "lt": [
+            "L_SHIPDATE",
+            {
+              "date": {
+                "literal": "1996-12-01"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "P_BRAND"
+      },
+      {
+        "value": "P_TYPE"
+      },
+      {
+        "value": "P_SIZE"
+      },
+      {
+        "value": {
+          "count": {
+            "distinct": {
+              "value": "PS_SUPPKEY"
+            }
+          }
+        },
+        "name": "SUPPLIER_CNT"
+      }
+    ],
+    "from": [
+      "PARTSUPP",
+      "PART"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "P_PARTKEY",
+            "PS_PARTKEY"
+          ]
+        },
+        {
+          "neq": [
+            "P_BRAND",
+            {
+              "literal": "BRAND#34"
+            }
+          ]
+        },
+        {
+          "not_like": [
+            "P_TYPE",
+            {
+              "literal": "LARGE BRUSHED%"
+            }
+          ]
+        },
+        {
+          "in": [
+            "P_SIZE",
+            [
+              48,
+              19,
+              12,
+              4,
+              41,
+              7,
+              21,
+              39
+            ]
+          ]
+        },
+        {
+          "nin": [
+            "PS_SUPPKEY",
+            {
+              "select": {
+                "value": "S_SUPPKEY"
+              },
+              "from": "SUPPLIER",
+              "where": {
+                "like": [
+                  "S_COMMENT",
+                  {
+                    "literal": "%CUSTOMER%COMPLAINTS%"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "groupby": [
+      {
+        "value": "P_BRAND"
+      },
+      {
+        "value": "P_TYPE"
+      },
+      {
+        "value": "P_SIZE"
+      }
+    ],
+    "orderby": [
+      {
+        "value": "SUPPLIER_CNT",
+        "sort": "desc"
+      },
+      {
+        "value": "P_BRAND"
+      },
+      {
+        "value": "P_TYPE"
+      },
+      {
+        "value": "P_SIZE"
+      }
+    ]
+  },
+  {
+    "select": {
+      "value": {
+        "div": [
+          {
+            "sum": "L_EXTENDEDPRICE"
+          },
+          7.0
+        ]
+      },
+      "name": "AVG_YEARLY"
+    },
+    "from": [
+      "LINEITEM",
+      "PART"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "P_PARTKEY",
+            "L_PARTKEY"
+          ]
+        },
+        {
+          "eq": [
+            "P_BRAND",
+            {
+              "literal": "BRAND#44"
+            }
+          ]
+        },
+        {
+          "eq": [
+            "P_CONTAINER",
+            {
+              "literal": "WRAP PKG"
+            }
+          ]
+        },
+        {
+          "lt": [
+            "L_QUANTITY",
+            {
+              "select": {
+                "value": {
+                  "mul": [
+                    0.2,
+                    {
+                      "avg": "L_QUANTITY"
+                    }
+                  ]
+                }
+              },
+              "from": "LINEITEM",
+              "where": {
+                "eq": [
+                  "L_PARTKEY",
+                  "P_PARTKEY"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "C_NAME"
+      },
+      {
+        "value": "C_CUSTKEY"
+      },
+      {
+        "value": "O_ORDERKEY"
+      },
+      {
+        "value": "O_ORDERDATE"
+      },
+      {
+        "value": "O_TOTALPRICE"
+      },
+      {
+        "value": {
+          "sum": "L_QUANTITY"
+        }
+      }
+    ],
+    "from": [
+      "CUSTOMER",
+      "ORDERS",
+      "LINEITEM"
+    ],
+    "where": {
+      "and": [
+        {
+          "in": [
+            "O_ORDERKEY",
+            {
+              "select": {
+                "value": "L_ORDERKEY"
+              },
+              "from": "LINEITEM",
+              "groupby": {
+                "value": "L_ORDERKEY"
+              },
+              "having": {
+                "gt": [
+                  {
+                    "sum": "L_QUANTITY"
+                  },
+                  314
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "eq": [
+            "C_CUSTKEY",
+            "O_CUSTKEY"
+          ]
+        },
+        {
+          "eq": [
+            "O_ORDERKEY",
+            "L_ORDERKEY"
+          ]
+        }
+      ]
+    },
+    "groupby": [
+      {
+        "value": "C_NAME"
+      },
+      {
+        "value": "C_CUSTKEY"
+      },
+      {
+        "value": "O_ORDERKEY"
+      },
+      {
+        "value": "O_ORDERDATE"
+      },
+      {
+        "value": "O_TOTALPRICE"
+      }
+    ],
+    "orderby": [
+      {
+        "value": "O_TOTALPRICE",
+        "sort": "desc"
+      },
+      {
+        "value": "O_ORDERDATE"
+      }
+    ],
+    "limit": 100
+  },
+  {
+    "select": {
+      "value": {
+        "sum": {
+          "mul": [
+            "L_EXTENDEDPRICE",
+            {
+              "sub": [
+                1,
+                "L_DISCOUNT"
+              ]
+            }
+          ]
+        }
+      },
+      "name": "REVENUE"
+    },
+    "from": [
+      "LINEITEM",
+      "PART"
+    ],
+    "where": {
+      "or": [
+        {
+          "and": [
+            {
+              "eq": [
+                "P_PARTKEY",
+                "L_PARTKEY"
+              ]
+            },
+            {
+              "eq": [
+                "P_BRAND",
+                {
+                  "literal": "BRAND#52"
+                }
+              ]
+            },
+            {
+              "in": [
+                "P_CONTAINER",
+                {
+                  "literal": [
+                    "SM CASE",
+                    "SM BOX",
+                    "SM PACK",
+                    "SM PKG"
+                  ]
+                }
+              ]
+            },
+            {
+              "gte": [
+                "L_QUANTITY",
+                4
+              ]
+            },
+            {
+              "lte": [
+                "L_QUANTITY",
+                {
+                  "add": [
+                    4,
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "between": [
+                "P_SIZE",
+                1,
+                5
+              ]
+            },
+            {
+              "in": [
+                "L_SHIPMODE",
+                {
+                  "literal": [
+                    "AIR",
+                    "AIR REG"
+                  ]
+                }
+              ]
+            },
+            {
+              "eq": [
+                "L_SHIPINSTRUCT",
+                {
+                  "literal": "DELIVER IN PERSON"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "and": [
+            {
+              "eq": [
+                "P_PARTKEY",
+                "L_PARTKEY"
+              ]
+            },
+            {
+              "eq": [
+                "P_BRAND",
+                {
+                  "literal": "BRAND#11"
+                }
+              ]
+            },
+            {
+              "in": [
+                "P_CONTAINER",
+                {
+                  "literal": [
+                    "MED BAG",
+                    "MED BOX",
+                    "MED PKG",
+                    "MED PACK"
+                  ]
+                }
+              ]
+            },
+            {
+              "gte": [
+                "L_QUANTITY",
+                18
+              ]
+            },
+            {
+              "lte": [
+                "L_QUANTITY",
+                {
+                  "add": [
+                    18,
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "between": [
+                "P_SIZE",
+                1,
+                10
+              ]
+            },
+            {
+              "in": [
+                "L_SHIPMODE",
+                {
+                  "literal": [
+                    "AIR",
+                    "AIR REG"
+                  ]
+                }
+              ]
+            },
+            {
+              "eq": [
+                "L_SHIPINSTRUCT",
+                {
+                  "literal": "DELIVER IN PERSON"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "and": [
+            {
+              "eq": [
+                "P_PARTKEY",
+                "L_PARTKEY"
+              ]
+            },
+            {
+              "eq": [
+                "P_BRAND",
+                {
+                  "literal": "BRAND#51"
+                }
+              ]
+            },
+            {
+              "in": [
+                "P_CONTAINER",
+                {
+                  "literal": [
+                    "LG CASE",
+                    "LG BOX",
+                    "LG PACK",
+                    "LG PKG"
+                  ]
+                }
+              ]
+            },
+            {
+              "gte": [
+                "L_QUANTITY",
+                29
+              ]
+            },
+            {
+              "lte": [
+                "L_QUANTITY",
+                {
+                  "add": [
+                    29,
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "between": [
+                "P_SIZE",
+                1,
+                15
+              ]
+            },
+            {
+              "in": [
+                "L_SHIPMODE",
+                {
+                  "literal": [
+                    "AIR",
+                    "AIR REG"
+                  ]
+                }
+              ]
+            },
+            {
+              "eq": [
+                "L_SHIPINSTRUCT",
+                {
+                  "literal": "DELIVER IN PERSON"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "S_ACCTBAL"
+      },
+      {
+        "value": "S_NAME"
+      },
+      {
+        "value": "N_NAME"
+      },
+      {
+        "value": "P_PARTKEY"
+      },
+      {
+        "value": "P_MFGR"
+      },
+      {
+        "value": "S_ADDRESS"
+      },
+      {
+        "value": "S_PHONE"
+      },
+      {
+        "value": "S_COMMENT"
+      }
+    ],
+    "from": [
+      "PART",
+      "SUPPLIER",
+      "PARTSUPP",
+      "NATION",
+      "REGION"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "P_PARTKEY",
+            "PS_PARTKEY"
+          ]
+        },
+        {
+          "eq": [
+            "S_SUPPKEY",
+            "PS_SUPPKEY"
+          ]
+        },
+        {
+          "eq": [
+            "P_SIZE",
+            30
+          ]
+        },
+        {
+          "like": [
+            "P_TYPE",
+            {
+              "literal": "%STEEL"
+            }
+          ]
+        },
+        {
+          "eq": [
+            "S_NATIONKEY",
+            "N_NATIONKEY"
+          ]
+        },
+        {
+          "eq": [
+            "N_REGIONKEY",
+            "R_REGIONKEY"
+          ]
+        },
+        {
+          "eq": [
+            "R_NAME",
+            {
+              "literal": "ASIA"
+            }
+          ]
+        },
+        {
+          "eq": [
+            "PS_SUPPLYCOST",
+            {
+              "select": {
+                "value": {
+                  "min": "PS_SUPPLYCOST"
+                }
+              },
+              "from": [
+                "PARTSUPP",
+                "SUPPLIER",
+                "NATION",
+                "REGION"
+              ],
+              "where": {
+                "and": [
+                  {
+                    "eq": [
+                      "P_PARTKEY",
+                      "PS_PARTKEY"
+                    ]
+                  },
+                  {
+                    "eq": [
+                      "S_SUPPKEY",
+                      "PS_SUPPKEY"
+                    ]
+                  },
+                  {
+                    "eq": [
+                      "S_NATIONKEY",
+                      "N_NATIONKEY"
+                    ]
+                  },
+                  {
+                    "eq": [
+                      "N_REGIONKEY",
+                      "R_REGIONKEY"
+                    ]
+                  },
+                  {
+                    "eq": [
+                      "R_NAME",
+                      {
+                        "literal": "ASIA"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "orderby": [
+      {
+        "value": "S_ACCTBAL",
+        "sort": "desc"
+      },
+      {
+        "value": "N_NAME"
+      },
+      {
+        "value": "S_NAME"
+      },
+      {
+        "value": "P_PARTKEY"
+      }
+    ],
+    "limit": 100
+  },
+  {
+    "select": [
+      {
+        "value": "S_NAME"
+      },
+      {
+        "value": "S_ADDRESS"
+      }
+    ],
+    "from": [
+      "SUPPLIER",
+      "NATION"
+    ],
+    "where": {
+      "and": [
+        {
+          "in": [
+            "S_SUPPKEY",
+            {
+              "select": {
+                "value": "PS_SUPPKEY"
+              },
+              "from": "PARTSUPP",
+              "where": {
+                "and": [
+                  {
+                    "in": [
+                      "PS_PARTKEY",
+                      {
+                        "select": {
+                          "value": "P_PARTKEY"
+                        },
+                        "from": "PART",
+                        "where": {
+                          "like": [
+                            "P_NAME",
+                            {
+                              "literal": "GREEN%"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "gt": [
+                      "PS_AVAILQTY",
+                      {
+                        "select": {
+                          "value": {
+                            "mul": [
+                              0.5,
+                              {
+                                "sum": "L_QUANTITY"
+                              }
+                            ]
+                          }
+                        },
+                        "from": "LINEITEM",
+                        "where": {
+                          "and": [
+                            {
+                              "eq": [
+                                "L_PARTKEY",
+                                "PS_PARTKEY"
+                              ]
+                            },
+                            {
+                              "eq": [
+                                "L_SUPPKEY",
+                                "PS_SUPPKEY"
+                              ]
+                            },
+                            {
+                              "gte": [
+                                "L_SHIPDATE",
+                                {
+                                  "date": {
+                                    "literal": "1993-01-01"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "lt": [
+                                "L_SHIPDATE",
+                                {
+                                  "date": {
+                                    "literal": "1993-01-01"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "eq": [
+            "S_NATIONKEY",
+            "N_NATIONKEY"
+          ]
+        },
+        {
+          "eq": [
+            "N_NAME",
+            {
+              "literal": "ALGERIA"
+            }
+          ]
+        }
+      ]
+    },
+    "orderby": {
+      "value": "S_NAME"
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "S_NAME"
+      },
+      {
+        "value": {
+          "count": "*"
+        },
+        "name": "NUMWAIT"
+      }
+    ],
+    "from": [
+      "SUPPLIER",
+      {
+        "value": "LINEITEM",
+        "name": "L1"
+      },
+      "ORDERS",
+      "NATION"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "S_SUPPKEY",
+            "L1.L_SUPPKEY"
+          ]
+        },
+        {
+          "eq": [
+            "O_ORDERKEY",
+            "L1.L_ORDERKEY"
+          ]
+        },
+        {
+          "eq": [
+            "O_ORDERSTATUS",
+            {
+              "literal": "F"
+            }
+          ]
+        },
+        {
+          "gt": [
+            "L1.L_RECEIPTDATE",
+            "L1.L_COMMITDATE"
+          ]
+        },
+        {
+          "exists": {
+            "select": "*",
+            "from": {
+              "value": "LINEITEM",
+              "name": "L2"
+            },
+            "where": {
+              "and": [
+                {
+                  "eq": [
+                    "L2.L_ORDERKEY",
+                    "L1.L_ORDERKEY"
+                  ]
+                },
+                {
+                  "neq": [
+                    "L2.L_SUPPKEY",
+                    "L1.L_SUPPKEY"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "not": {
+            "exists": {
+              "select": "*",
+              "from": {
+                "value": "LINEITEM",
+                "name": "L3"
+              },
+              "where": {
+                "and": [
+                  {
+                    "eq": [
+                      "L3.L_ORDERKEY",
+                      "L1.L_ORDERKEY"
+                    ]
+                  },
+                  {
+                    "neq": [
+                      "L3.L_SUPPKEY",
+                      "L1.L_SUPPKEY"
+                    ]
+                  },
+                  {
+                    "gt": [
+                      "L3.L_RECEIPTDATE",
+                      "L3.L_COMMITDATE"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "eq": [
+            "S_NATIONKEY",
+            "N_NATIONKEY"
+          ]
+        },
+        {
+          "eq": [
+            "N_NAME",
+            {
+              "literal": "EGYPT"
+            }
+          ]
+        }
+      ]
+    },
+    "groupby": {
+      "value": "S_NAME"
+    },
+    "orderby": [
+      {
+        "value": "NUMWAIT",
+        "sort": "desc"
+      },
+      {
+        "value": "S_NAME"
+      }
+    ],
+    "limit": 100
+  },
+  {
+    "select": [
+      {
+        "value": "L_ORDERKEY"
+      },
+      {
+        "value": {
+          "sum": {
+            "mul": [
+              "L_EXTENDEDPRICE",
+              {
+                "sub": [
+                  1,
+                  "L_DISCOUNT"
+                ]
+              }
+            ]
+          }
+        },
+        "name": "REVENUE"
+      },
+      {
+        "value": "O_ORDERDATE"
+      },
+      {
+        "value": "O_SHIPPRIORITY"
+      }
+    ],
+    "from": [
+      "CUSTOMER",
+      "ORDERS",
+      "LINEITEM"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "C_MKTSEGMENT",
+            {
+              "literal": "AUTOMOBILE"
+            }
+          ]
+        },
+        {
+          "eq": [
+            "C_CUSTKEY",
+            "O_CUSTKEY"
+          ]
+        },
+        {
+          "eq": [
+            "L_ORDERKEY",
+            "O_ORDERKEY"
+          ]
+        },
+        {
+          "lt": [
+            "O_ORDERDATE",
+            {
+              "date": {
+                "literal": "1995-03-13"
+              }
+            }
+          ]
+        },
+        {
+          "gt": [
+            "L_SHIPDATE",
+            {
+              "date": {
+                "literal": "1995-03-13"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "groupby": [
+      {
+        "value": "L_ORDERKEY"
+      },
+      {
+        "value": "O_ORDERDATE"
+      },
+      {
+        "value": "O_SHIPPRIORITY"
+      }
+    ],
+    "orderby": [
+      {
+        "value": "REVENUE",
+        "sort": "desc"
+      },
+      {
+        "value": "O_ORDERDATE"
+      }
+    ],
+    "limit": 10
+  },
+  {
+    "select": [
+      {
+        "value": "O_ORDERPRIORITY"
+      },
+      {
+        "value": {
+          "count": "*"
+        },
+        "name": "ORDER_COUNT"
+      }
+    ],
+    "from": "ORDERS",
+    "where": {
+      "and": [
+        {
+          "gte": [
+            "O_ORDERDATE",
+            {
+              "date": {
+                "literal": "1995-01-01"
+              }
+            }
+          ]
+        },
+        {
+          "lt": [
+            "O_ORDERDATE",
+            {
+              "date": {
+                "literal": "1995-01-01"
+              }
+            }
+          ]
+        },
+        {
+          "exists": {
+            "select": "*",
+            "from": "LINEITEM",
+            "where": {
+              "and": [
+                {
+                  "eq": [
+                    "L_ORDERKEY",
+                    "O_ORDERKEY"
+                  ]
+                },
+                {
+                  "lt": [
+                    "L_COMMITDATE",
+                    "L_RECEIPTDATE"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "groupby": {
+      "value": "O_ORDERPRIORITY"
+    },
+    "orderby": {
+      "value": "O_ORDERPRIORITY"
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "N_NAME"
+      },
+      {
+        "value": {
+          "sum": {
+            "mul": [
+              "L_EXTENDEDPRICE",
+              {
+                "sub": [
+                  1,
+                  "L_DISCOUNT"
+                ]
+              }
+            ]
+          }
+        },
+        "name": "REVENUE"
+      }
+    ],
+    "from": [
+      "CUSTOMER",
+      "ORDERS",
+      "LINEITEM",
+      "SUPPLIER",
+      "NATION",
+      "REGION"
+    ],
+    "where": {
+      "and": [
+        {
+          "eq": [
+            "C_CUSTKEY",
+            "O_CUSTKEY"
+          ]
+        },
+        {
+          "eq": [
+            "L_ORDERKEY",
+            "O_ORDERKEY"
+          ]
+        },
+        {
+          "eq": [
+            "L_SUPPKEY",
+            "S_SUPPKEY"
+          ]
+        },
+        {
+          "eq": [
+            "C_NATIONKEY",
+            "S_NATIONKEY"
+          ]
+        },
+        {
+          "eq": [
+            "S_NATIONKEY",
+            "N_NATIONKEY"
+          ]
+        },
+        {
+          "eq": [
+            "N_REGIONKEY",
+            "R_REGIONKEY"
+          ]
+        },
+        {
+          "eq": [
+            "R_NAME",
+            {
+              "literal": "MIDDLE EAST"
+            }
+          ]
+        },
+        {
+          "gte": [
+            "O_ORDERDATE",
+            {
+              "date": {
+                "literal": "1994-01-01"
+              }
+            }
+          ]
+        },
+        {
+          "lt": [
+            "O_ORDERDATE",
+            {
+              "date": {
+                "literal": "1994-01-01"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "groupby": {
+      "value": "N_NAME"
+    },
+    "orderby": {
+      "value": "REVENUE",
+      "sort": "desc"
+    }
+  },
+  {
+    "select": {
+      "value": {
+        "sum": {
+          "mul": [
+            "L_EXTENDEDPRICE",
+            "L_DISCOUNT"
+          ]
+        }
+      },
+      "name": "REVENUE"
+    },
+    "from": "LINEITEM",
+    "where": {
+      "and": [
+        {
+          "gte": [
+            "L_SHIPDATE",
+            {
+              "date": {
+                "literal": "1994-01-01"
+              }
+            }
+          ]
+        },
+        {
+          "lt": [
+            "L_SHIPDATE",
+            {
+              "date": {
+                "literal": "1994-01-01"
+              }
+            }
+          ]
+        },
+        {
+          "between": [
+            "L_DISCOUNT",
+            {
+              "sub": [
+                0.06,
+                0.01
+              ]
+            },
+            {
+              "add": [
+                0.06,
+                0.01
+              ]
+            }
+          ]
+        },
+        {
+          "lt": [
+            "L_QUANTITY",
+            24
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "SUPP_NATION"
+      },
+      {
+        "value": "CUST_NATION"
+      },
+      {
+        "value": "L_YEAR"
+      },
+      {
+        "value": {
+          "sum": "VOLUME"
+        },
+        "name": "REVENUE"
+      }
+    ],
+    "from": {
+      "value": {
+        "select": [
+          {
+            "value": "N1.N_NAME",
+            "name": "SUPP_NATION"
+          },
+          {
+            "value": "N2.N_NAME",
+            "name": "CUST_NATION"
+          },
+          {
+            "value": "EXTRACT_CLAUSE"
+          },
+          {
+            "value": {
+              "mul": [
+                "L_EXTENDEDPRICE",
+                {
+                  "sub": [
+                    1,
+                    "L_DISCOUNT"
+                  ]
+                }
+              ]
+            },
+            "name": "VOLUME"
+          }
+        ],
+        "from": [
+          "SUPPLIER",
+          "LINEITEM",
+          "ORDERS",
+          "CUSTOMER",
+          {
+            "value": "NATION",
+            "name": "N1"
+          },
+          {
+            "value": "NATION",
+            "name": "N2"
+          }
+        ],
+        "where": {
+          "and": [
+            {
+              "eq": [
+                "S_SUPPKEY",
+                "L_SUPPKEY"
+              ]
+            },
+            {
+              "eq": [
+                "O_ORDERKEY",
+                "L_ORDERKEY"
+              ]
+            },
+            {
+              "eq": [
+                "C_CUSTKEY",
+                "O_CUSTKEY"
+              ]
+            },
+            {
+              "eq": [
+                "S_NATIONKEY",
+                "N1.N_NATIONKEY"
+              ]
+            },
+            {
+              "eq": [
+                "C_NATIONKEY",
+                "N2.N_NATIONKEY"
+              ]
+            },
+            {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        "N1.N_NAME",
+                        {
+                          "literal": "JAPAN"
+                        }
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "N2.N_NAME",
+                        {
+                          "literal": "INDIA"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        "N1.N_NAME",
+                        {
+                          "literal": "INDIA"
+                        }
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "N2.N_NAME",
+                        {
+                          "literal": "JAPAN"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "between": [
+                "L_SHIPDATE",
+                {
+                  "date": {
+                    "literal": "1995-01-01"
+                  }
+                },
+                {
+                  "date": {
+                    "literal": "1996-12-31"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "name": "SHIPPING"
+    },
+    "groupby": [
+      {
+        "value": "SUPP_NATION"
+      },
+      {
+        "value": "CUST_NATION"
+      },
+      {
+        "value": "L_YEAR"
+      }
+    ],
+    "orderby": [
+      {
+        "value": "SUPP_NATION"
+      },
+      {
+        "value": "CUST_NATION"
+      },
+      {
+        "value": "L_YEAR"
+      }
+    ]
+  },
+  {
+    "select": [
+      {
+        "value": "O_YEAR"
+      },
+      {
+        "value": {
+          "div": [
+            {
+              "sum": {
+                "case": [
+                  {
+                    "when": {
+                      "eq": [
+                        "NATION",
+                        {
+                          "literal": "INDIA"
+                        }
+                      ]
+                    },
+                    "then": "VOLUME"
+                  },
+                  0
+                ]
+              }
+            },
+            {
+              "sum": "VOLUME"
+            }
+          ]
+        },
+        "name": "MKT_SHARE"
+      }
+    ],
+    "from": {
+      "value": {
+        "select": [
+          {
+            "value": "EXTRACT_CLAUSE"
+          },
+          {
+            "value": {
+              "mul": [
+                "L_EXTENDEDPRICE",
+                {
+                  "sub": [
+                    1,
+                    "L_DISCOUNT"
+                  ]
+                }
+              ]
+            },
+            "name": "VOLUME"
+          },
+          {
+            "value": "N2.N_NAME",
+            "name": "NATION"
+          }
+        ],
+        "from": [
+          "PART",
+          "SUPPLIER",
+          "LINEITEM",
+          "ORDERS",
+          "CUSTOMER",
+          {
+            "value": "NATION",
+            "name": "N1"
+          },
+          {
+            "value": "NATION",
+            "name": "N2"
+          },
+          "REGION"
+        ],
+        "where": {
+          "and": [
+            {
+              "eq": [
+                "P_PARTKEY",
+                "L_PARTKEY"
+              ]
+            },
+            {
+              "eq": [
+                "S_SUPPKEY",
+                "L_SUPPKEY"
+              ]
+            },
+            {
+              "eq": [
+                "L_ORDERKEY",
+                "O_ORDERKEY"
+              ]
+            },
+            {
+              "eq": [
+                "O_CUSTKEY",
+                "C_CUSTKEY"
+              ]
+            },
+            {
+              "eq": [
+                "C_NATIONKEY",
+                "N1.N_NATIONKEY"
+              ]
+            },
+            {
+              "eq": [
+                "N1.N_REGIONKEY",
+                "R_REGIONKEY"
+              ]
+            },
+            {
+              "eq": [
+                "R_NAME",
+                {
+                  "literal": "ASIA"
+                }
+              ]
+            },
+            {
+              "eq": [
+                "S_NATIONKEY",
+                "N2.N_NATIONKEY"
+              ]
+            },
+            {
+              "between": [
+                "O_ORDERDATE",
+                {
+                  "date": {
+                    "literal": "1995-01-01"
+                  }
+                },
+                {
+                  "date": {
+                    "literal": "1996-12-31"
+                  }
+                }
+              ]
+            },
+            {
+              "eq": [
+                "P_TYPE",
+                {
+                  "literal": "SMALL PLATED COPPER"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "name": "ALL_NATIONS"
+    },
+    "groupby": {
+      "value": "O_YEAR"
+    },
+    "orderby": {
+      "value": "O_YEAR"
+    }
+  },
+  {
+    "select": [
+      {
+        "value": "NATION"
+      },
+      {
+        "value": "O_YEAR"
+      },
+      {
+        "value": {
+          "sum": "AMOUNT"
+        },
+        "name": "SUM_PROFIT"
+      }
+    ],
+    "from": {
+      "value": {
+        "select": [
+          {
+            "value": "N_NAME",
+            "name": "NATION"
+          },
+          {
+            "value": "EXTRACT_CLAUSE"
+          },
+          {
+            "value": {
+              "sub": [
+                {
+                  "mul": [
+                    "L_EXTENDEDPRICE",
+                    {
+                      "sub": [
+                        1,
+                        "L_DISCOUNT"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "mul": [
+                    "PS_SUPPLYCOST",
+                    "L_QUANTITY"
+                  ]
+                }
+              ]
+            },
+            "name": "AMOUNT"
+          }
+        ],
+        "from": [
+          "PART",
+          "SUPPLIER",
+          "LINEITEM",
+          "PARTSUPP",
+          "ORDERS",
+          "NATION"
+        ],
+        "where": {
+          "and": [
+            {
+              "eq": [
+                "S_SUPPKEY",
+                "L_SUPPKEY"
+              ]
+            },
+            {
+              "eq": [
+                "PS_SUPPKEY",
+                "L_SUPPKEY"
+              ]
+            },
+            {
+              "eq": [
+                "PS_PARTKEY",
+                "L_PARTKEY"
+              ]
+            },
+            {
+              "eq": [
+                "P_PARTKEY",
+                "L_PARTKEY"
+              ]
+            },
+            {
+              "eq": [
+                "O_ORDERKEY",
+                "L_ORDERKEY"
+              ]
+            },
+            {
+              "eq": [
+                "S_NATIONKEY",
+                "N_NATIONKEY"
+              ]
+            },
+            {
+              "like": [
+                "P_NAME",
+                {
+                  "literal": "%DIM%"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "name": "PROFIT"
+    },
+    "groupby": [
+      {
+        "value": "NATION"
+      },
+      {
+        "value": "O_YEAR"
+      }
+    ],
+    "orderby": [
+      {
+        "value": "NATION"
+      },
+      {
+        "value": "O_YEAR",
+        "sort": "desc"
+      }
+    ]
+  }
+]

@@ -1,0 +1,98 @@
+graph G {subgraph cluster_0{
+	label="AR_INTERNAL_METADATA";
+	}
+subgraph cluster_1{
+	label="CATEGORIES";
+	}
+subgraph cluster_2{
+	label="COMMENTS";
+	COMMENTS_STORY_ID [label = "STORY_ID"];
+	COMMENTS_USER_ID [label = "USER_ID"];
+	}
+subgraph cluster_3{
+	label="DOMAINS";
+	DOMAINS_ID [label = "ID"];
+	}
+subgraph cluster_4{
+	label="HAT_REQUESTS";
+	}
+subgraph cluster_5{
+	label="HATS";
+	HATS_ID [label = "ID"];
+	HATS_USER_ID [label = "USER_ID"];
+	}
+subgraph cluster_6{
+	label="HIDDEN_STORIES";
+	HIDDEN_STORIES_USER_ID [label = "USER_ID"];
+	}
+subgraph cluster_7{
+	label="INVITATION_REQUESTS";
+	}
+subgraph cluster_8{
+	label="INVITATIONS";
+	}
+subgraph cluster_9{
+	label="KEYSTORES";
+	}
+subgraph cluster_10{
+	label="MESSAGES";
+	MESSAGES_RECIPIENT_USER_ID [label = "RECIPIENT_USER_ID"];
+	}
+subgraph cluster_11{
+	label="MOD_NOTES";
+	}
+subgraph cluster_12{
+	label="MODERATIONS";
+	MODERATIONS_MODERATOR_USER_ID [label = "MODERATOR_USER_ID"];
+	MODERATIONS_USER_ID [label = "USER_ID"];
+	MODERATIONS_TAG_ID [label = "TAG_ID"];
+	}
+subgraph cluster_13{
+	label="READ_RIBBONS";
+	READ_RIBBONS_USER_ID [label = "USER_ID"];
+	}
+subgraph cluster_14{
+	label="SAVED_STORIES";
+	SAVED_STORIES_USER_ID [label = "USER_ID"];
+	}
+subgraph cluster_15{
+	label="SCHEMA_MIGRATIONS";
+	}
+subgraph cluster_16{
+	label="STORIES";
+	STORIES_ID [label = "ID"];
+	STORIES_USER_ID [label = "USER_ID"];
+	STORIES_DOMAIN_ID [label = "DOMAIN_ID"];
+	}
+subgraph cluster_17{
+	label="STORY_TEXTS";
+	}
+subgraph cluster_18{
+	label="SUGGESTED_TAGGINGS";
+	}
+subgraph cluster_19{
+	label="SUGGESTED_TITLES";
+	}
+subgraph cluster_20{
+	label="TAG_FILTERS";
+	}
+subgraph cluster_21{
+	label="TAGGINGS";
+	TAGGINGS_STORY_ID [label = "STORY_ID"];
+	TAGGINGS_TAG_ID [label = "TAG_ID"];
+	}
+subgraph cluster_22{
+	label="TAGS";
+	TAGS_ID [label = "ID"];
+	}
+subgraph cluster_23{
+	label="USERS";
+	}
+subgraph cluster_24{
+	label="VOTES";
+	VOTES_USER_ID [label = "USER_ID"];
+	VOTES_STORY_ID [label = "STORY_ID"];
+	}MODERATIONS_TAG_ID -- TAGS_ID
+DOMAINS_ID -- STORIES_DOMAIN_ID
+STORIES_ID -- TAGGINGS_STORY_ID
+STORIES_ID -- VOTES_STORY_ID}

@@ -1,0 +1,24 @@
+{
+  "domains": [
+    "id"
+  ],
+  "read_ribbons": [
+    "id"
+  ],
+  "moderations": [
+    "tag_id"
+  ],
+  "votes": [
+    "story_id"
+  ],
+  "suggested_taggings": [
+    "id"
+  ],
+  "mod_notes": [
+    "id"
+  ],
+  "taggings": [
+    "id",
+    "story_id"
+  ]
+}

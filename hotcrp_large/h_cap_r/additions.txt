@@ -1,0 +1,11 @@
+PaperReview.paperId--Paper.paperId
+ContactInfo.contactId--TopicInterest.contactId
+ContactInfo.contactId--Paper.leadContactId	
+ContactInfo.contactId--PaperReview.contactId
+ContactInfo.contactId--PaperComment.contactId
+ContactInfo.contactId--PaperReviewPreference.contactId
+ContactInfo.contactId--PaperReviewRefused.contactId
+PaperConflict.paperId--PaperReview.paperId	
+ContactInfo.contactId--ReviewRequest.requestedBy
+ContactInfo.contactId--ReviewRating.contactId
+PaperTopic.topicId--TopicArea.topicId

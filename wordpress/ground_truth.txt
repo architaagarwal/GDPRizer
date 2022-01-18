@@ -1,0 +1,11 @@
+Q1: SELECT * FROM wp_users WHERE ID = ds_id
+
+Q2: SELECT * FROM wp_usermeta WHERE user_id IN {Q1.ID}
+
+Q3: SELECT * FROM wp_comments WHERE user_id = ds_id
+
+Q4: SELECT * FROM wp_commentmeta WHERE comment_id IN {Q3.comment_ID}
+
+Q5: SELECT * FROM wp_posts WHERE post_author = ds_id
+
+Q6: SELECT * FROM wp_postmeta WHERE post_id IN {Q5.ID}

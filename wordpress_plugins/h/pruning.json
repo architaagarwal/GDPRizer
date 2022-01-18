@@ -1,0 +1,8 @@
+{
+  "wp_term_relationships": [
+    "object_id"
+  ],
+  "wp_woocommerce_order_itemmeta": [
+    "meta_id"
+  ]
+}

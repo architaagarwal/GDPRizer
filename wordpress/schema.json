@@ -1,0 +1,371 @@
+[
+  {
+    "wp_commentmeta": [
+      "meta_id",
+      "comment_id",
+      "meta_key",
+      "meta_value"
+    ],
+    "wp_comments": [
+      "comment_ID",
+      "comment_post_ID",
+      "comment_author",
+      "comment_author_email",
+      "comment_author_url",
+      "comment_author_IP",
+      "comment_date",
+      "comment_date_gmt",
+      "comment_content",
+      "comment_karma",
+      "comment_approved",
+      "comment_agent",
+      "comment_type",
+      "comment_parent",
+      "user_id"
+    ],
+    "wp_links": [
+      "link_id",
+      "link_url",
+      "link_name",
+      "link_image",
+      "link_target",
+      "link_description",
+      "link_visible",
+      "link_owner",
+      "link_rating",
+      "link_updated",
+      "link_rel",
+      "link_notes",
+      "link_rss"
+    ],
+    "wp_options": [
+      "option_id",
+      "option_name",
+      "option_value",
+      "autoload"
+    ],
+    "wp_postmeta": [
+      "meta_id",
+      "post_id",
+      "meta_key",
+      "meta_value"
+    ],
+    "wp_posts": [
+      "ID",
+      "post_author",
+      "post_date",
+      "post_date_gmt",
+      "post_content",
+      "post_title",
+      "post_excerpt",
+      "post_status",
+      "comment_status",
+      "ping_status",
+      "post_password",
+      "post_name",
+      "to_ping",
+      "pinged",
+      "post_modified",
+      "post_modified_gmt",
+      "post_content_filtered",
+      "post_parent",
+      "guid",
+      "menu_order",
+      "post_type",
+      "post_mime_type",
+      "comment_count"
+    ],
+    "wp_term_relationships": [
+      "object_id",
+      "term_taxonomy_id",
+      "term_order"
+    ],
+    "wp_term_taxonomy": [
+      "term_taxonomy_id",
+      "term_id",
+      "taxonomy",
+      "description",
+      "parent",
+      "count"
+    ],
+    "wp_termmeta": [
+      "meta_id",
+      "term_id",
+      "meta_key",
+      "meta_value"
+    ],
+    "wp_terms": [
+      "term_id",
+      "name",
+      "slug",
+      "term_group"
+    ],
+    "wp_usermeta": [
+      "umeta_id",
+      "user_id",
+      "meta_key",
+      "meta_value"
+    ],
+    "wp_users": [
+      "ID",
+      "user_login",
+      "user_pass",
+      "user_nicename",
+      "user_email",
+      "user_url",
+      "user_registered",
+      "user_activation_key",
+      "user_status",
+      "display_name"
+    ]
+  },
+  {
+    "comment_id": "wp_commentmeta",
+    "comment_ID": "wp_comments",
+    "comment_post_ID": "wp_comments",
+    "comment_author": "wp_comments",
+    "comment_author_email": "wp_comments",
+    "comment_author_url": "wp_comments",
+    "comment_author_IP": "wp_comments",
+    "comment_date": "wp_comments",
+    "comment_date_gmt": "wp_comments",
+    "comment_content": "wp_comments",
+    "comment_karma": "wp_comments",
+    "comment_approved": "wp_comments",
+    "comment_agent": "wp_comments",
+    "comment_type": "wp_comments",
+    "comment_parent": "wp_comments",
+    "link_id": "wp_links",
+    "link_url": "wp_links",
+    "link_name": "wp_links",
+    "link_image": "wp_links",
+    "link_target": "wp_links",
+    "link_description": "wp_links",
+    "link_visible": "wp_links",
+    "link_owner": "wp_links",
+    "link_rating": "wp_links",
+    "link_updated": "wp_links",
+    "link_rel": "wp_links",
+    "link_notes": "wp_links",
+    "link_rss": "wp_links",
+    "option_id": "wp_options",
+    "option_name": "wp_options",
+    "option_value": "wp_options",
+    "autoload": "wp_options",
+    "post_id": "wp_postmeta",
+    "post_author": "wp_posts",
+    "post_date": "wp_posts",
+    "post_date_gmt": "wp_posts",
+    "post_content": "wp_posts",
+    "post_title": "wp_posts",
+    "post_excerpt": "wp_posts",
+    "post_status": "wp_posts",
+    "comment_status": "wp_posts",
+    "ping_status": "wp_posts",
+    "post_password": "wp_posts",
+    "post_name": "wp_posts",
+    "to_ping": "wp_posts",
+    "pinged": "wp_posts",
+    "post_modified": "wp_posts",
+    "post_modified_gmt": "wp_posts",
+    "post_content_filtered": "wp_posts",
+    "post_parent": "wp_posts",
+    "guid": "wp_posts",
+    "menu_order": "wp_posts",
+    "post_type": "wp_posts",
+    "post_mime_type": "wp_posts",
+    "comment_count": "wp_posts",
+    "object_id": "wp_term_relationships",
+    "term_order": "wp_term_relationships",
+    "taxonomy": "wp_term_taxonomy",
+    "description": "wp_term_taxonomy",
+    "parent": "wp_term_taxonomy",
+    "count": "wp_term_taxonomy",
+    "name": "wp_terms",
+    "slug": "wp_terms",
+    "term_group": "wp_terms",
+    "umeta_id": "wp_usermeta",
+    "user_login": "wp_users",
+    "user_pass": "wp_users",
+    "user_nicename": "wp_users",
+    "user_email": "wp_users",
+    "user_url": "wp_users",
+    "user_registered": "wp_users",
+    "user_activation_key": "wp_users",
+    "user_status": "wp_users",
+    "display_name": "wp_users"
+  },
+  {
+    "wp_commentmeta": [
+      "meta_id"
+    ],
+    "wp_comments": [
+      "comment_ID"
+    ],
+    "wp_links": [
+      "link_id"
+    ],
+    "wp_options": [
+      "option_id"
+    ],
+    "wp_postmeta": [
+      "meta_id"
+    ],
+    "wp_posts": [
+      "ID"
+    ],
+    "wp_term_relationships": [
+      "object_id",
+      "term_taxonomy_id"
+    ],
+    "wp_term_taxonomy": [
+      "term_taxonomy_id"
+    ],
+    "wp_termmeta": [
+      "meta_id"
+    ],
+    "wp_terms": [
+      "term_id"
+    ],
+    "wp_usermeta": [
+      "umeta_id"
+    ],
+    "wp_users": [
+      "ID"
+    ]
+  },
+  {
+    "wp_commentmeta": [],
+    "wp_comments": [],
+    "wp_links": [],
+    "wp_options": [],
+    "wp_postmeta": [],
+    "wp_posts": [],
+    "wp_term_relationships": [],
+    "wp_term_taxonomy": [],
+    "wp_termmeta": [],
+    "wp_terms": [],
+    "wp_usermeta": [],
+    "wp_users": []
+  },
+  {
+    "wp_commentmeta": {
+      "meta_id": "bigint",
+      "comment_id": "bigint",
+      "meta_key": "varchar(255)",
+      "meta_value": "longtext"
+    },
+    "wp_comments": {
+      "comment_ID": "bigint",
+      "comment_post_ID": "bigint",
+      "comment_author": "tinytext",
+      "comment_author_email": "varchar(100)",
+      "comment_author_url": "varchar(200)",
+      "comment_author_IP": "varchar(100)",
+      "comment_date": "datetime",
+      "comment_date_gmt": "datetime",
+      "comment_content": "text",
+      "comment_karma": "int",
+      "comment_approved": "varchar(20)",
+      "comment_agent": "varchar(255)",
+      "comment_type": "varchar(20)",
+      "comment_parent": "bigint",
+      "user_id": "bigint"
+    },
+    "wp_links": {
+      "link_id": "bigint",
+      "link_url": "varchar(255)",
+      "link_name": "varchar(255)",
+      "link_image": "varchar(255)",
+      "link_target": "varchar(25)",
+      "link_description": "varchar(255)",
+      "link_visible": "varchar(20)",
+      "link_owner": "bigint",
+      "link_rating": "int",
+      "link_updated": "datetime",
+      "link_rel": "varchar(255)",
+      "link_notes": "mediumtext",
+      "link_rss": "varchar(255)"
+    },
+    "wp_options": {
+      "option_id": "bigint",
+      "option_name": "varchar(191)",
+      "option_value": "longtext",
+      "autoload": "varchar(20)"
+    },
+    "wp_postmeta": {
+      "meta_id": "bigint",
+      "post_id": "bigint",
+      "meta_key": "varchar(255)",
+      "meta_value": "longtext"
+    },
+    "wp_posts": {
+      "ID": "bigint",
+      "post_author": "bigint",
+      "post_date": "datetime",
+      "post_date_gmt": "datetime",
+      "post_content": "longtext",
+      "post_title": "text",
+      "post_excerpt": "text",
+      "post_status": "varchar(20)",
+      "comment_status": "varchar(20)",
+      "ping_status": "varchar(20)",
+      "post_password": "varchar(255)",
+      "post_name": "varchar(200)",
+      "to_ping": "text",
+      "pinged": "text",
+      "post_modified": "datetime",
+      "post_modified_gmt": "datetime",
+      "post_content_filtered": "longtext",
+      "post_parent": "bigint",
+      "guid": "varchar(255)",
+      "menu_order": "int",
+      "post_type": "varchar(20)",
+      "post_mime_type": "varchar(100)",
+      "comment_count": "bigint"
+    },
+    "wp_term_relationships": {
+      "object_id": "bigint",
+      "term_taxonomy_id": "bigint",
+      "term_order": "int"
+    },
+    "wp_term_taxonomy": {
+      "term_taxonomy_id": "bigint",
+      "term_id": "bigint",
+      "taxonomy": "varchar(32)",
+      "description": "longtext",
+      "parent": "bigint",
+      "count": "bigint"
+    },
+    "wp_termmeta": {
+      "meta_id": "bigint",
+      "term_id": "bigint",
+      "meta_key": "varchar(255)",
+      "meta_value": "longtext"
+    },
+    "wp_terms": {
+      "term_id": "bigint",
+      "name": "varchar(200)",
+      "slug": "varchar(200)",
+      "term_group": "bigint"
+    },
+    "wp_usermeta": {
+      "umeta_id": "bigint",
+      "user_id": "bigint",
+      "meta_key": "varchar(255)",
+      "meta_value": "longtext"
+    },
+    "wp_users": {
+      "ID": "bigint",
+      "user_login": "varchar(60)",
+      "user_pass": "varchar(255)",
+      "user_nicename": "varchar(50)",
+      "user_email": "varchar(100)",
+      "user_url": "varchar(100)",
+      "user_registered": "datetime",
+      "user_activation_key": "varchar(255)",
+      "user_status": "int",
+      "display_name": "varchar(250)"
+    }
+  }
+]

@@ -1,0 +1,39 @@
+Q1: select * from ContactInfo where contactId = ds_id
+
+Q2: select * from Paper where leadContactId = ds_id
+
+Q2.a select * from Paper where paperId in (Q5.paperId)
+
+Q3: select * from PaperOption where paperId in {Q2.paperId OR Q5.paperId}
+
+Q4: select * from PaperComment where contactId = ds_id
+
+Q5: select * from PaperConflict where contactId = ds_id and conflictType in (96, 32)
+
+Q5a: select * from PaperConflict where paperId in {Q5.paperId}
+
+Q6: select * from PaperReview where paperId in {Q2.paperId OR Q5.paperId}
+
+Q7: select * from PaperReview where contactId = ds_id
+
+Q8: select * from PaperReviewPreference where contactId = ds_id
+
+Q9: select * from PaperReviewRefused where contactId = ds_id
+
+Q10: select * from PaperReviewRefused where requestedBy = ds_id
+
+Q11: select * from PaperTopic where paperId in {Q2.paperId OR Q5.paperId}
+
+Q12: select * from ReviewRating where paperId in {Q2.paperId OR Q5.paperId}
+
+Q13: select * from ReviewRating where contactId = ds_id
+
+Q14: select * from ReviewRequest where contactId = ds_id
+
+Q15: select * from ReviewRequest where requestedBy = ds_id
+
+Q16: select * from TopicArea where topicId in {Q11.topicId}
+
+Q17: select * from TopicInterest where contactId = ds_id
+
+Q18: select * from TopicArea where topicId in {Q17.topicId}

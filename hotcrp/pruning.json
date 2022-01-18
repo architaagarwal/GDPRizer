@@ -1,0 +1,11 @@
+{
+  "PaperComment": [
+    "paperId"
+  ],
+  "PaperConflict": [
+    "contactId"
+  ],
+  "PaperReview": [
+    "requestedBy"
+  ]
+}

@@ -1,0 +1,14 @@
+users.id--stories.user_id
+users.id--hats.user_id
+users.id--hats.granted_by_user_id
+users.id--hat_requests.user_id
+users.id--mod_notes.user_id
+users.id--mod_notes.moderator_user_id
+users.id--saved_stories.user_id
+users.id--suggested_titles.user_id
+users.id--suggested_taggings.user_id
+users.id--moderations.moderator_user_id
+users.id--tag_filters.user_id
+users.id--invitations.user_id
+users.id--invitations.new_user_id
+stories.id--comments.story_id

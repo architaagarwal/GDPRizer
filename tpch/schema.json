@@ -1,0 +1,261 @@
+[
+  {
+    "NATION": [
+      "N_NATIONKEY",
+      "N_NAME",
+      "N_REGIONKEY",
+      "N_COMMENT"
+    ],
+    "REGION": [
+      "R_REGIONKEY",
+      "R_NAME",
+      "R_COMMENT"
+    ],
+    "PART": [
+      "P_PARTKEY",
+      "P_NAME",
+      "P_MFGR",
+      "P_BRAND",
+      "P_TYPE",
+      "P_SIZE",
+      "P_CONTAINER",
+      "P_RETAILPRICE",
+      "P_COMMENT"
+    ],
+    "SUPPLIER": [
+      "S_SUPPKEY",
+      "S_NAME",
+      "S_ADDRESS",
+      "S_NATIONKEY",
+      "S_PHONE",
+      "S_ACCTBAL",
+      "S_COMMENT"
+    ],
+    "PARTSUPP": [
+      "PS_PARTKEY",
+      "PS_SUPPKEY",
+      "PS_AVAILQTY",
+      "PS_SUPPLYCOST",
+      "PS_COMMENT"
+    ],
+    "CUSTOMER": [
+      "C_CUSTKEY",
+      "C_NAME",
+      "C_ADDRESS",
+      "C_NATIONKEY",
+      "C_PHONE",
+      "C_ACCTBAL",
+      "C_MKTSEGMENT",
+      "C_COMMENT"
+    ],
+    "ORDERS": [
+      "O_ORDERKEY",
+      "O_CUSTKEY",
+      "O_ORDERSTATUS",
+      "O_TOTALPRICE",
+      "O_ORDERDATE",
+      "O_ORDERPRIORITY",
+      "O_CLERK",
+      "O_SHIPPRIORITY",
+      "O_COMMENT"
+    ],
+    "LINEITEM": [
+      "L_ORDERKEY",
+      "L_PARTKEY",
+      "L_SUPPKEY",
+      "L_LINENUMBER",
+      "L_QUANTITY",
+      "L_EXTENDEDPRICE",
+      "L_DISCOUNT",
+      "L_TAX",
+      "L_RETURNFLAG",
+      "L_LINESTATUS",
+      "L_SHIPDATE",
+      "L_COMMITDATE",
+      "L_RECEIPTDATE",
+      "L_SHIPINSTRUCT",
+      "L_SHIPMODE",
+      "L_COMMENT"
+    ]
+  },
+  {
+    "N_NATIONKEY": "NATION",
+    "N_NAME": "NATION",
+    "N_REGIONKEY": "NATION",
+    "N_COMMENT": "NATION",
+    "R_REGIONKEY": "REGION",
+    "R_NAME": "REGION",
+    "R_COMMENT": "REGION",
+    "P_PARTKEY": "PART",
+    "P_NAME": "PART",
+    "P_MFGR": "PART",
+    "P_BRAND": "PART",
+    "P_TYPE": "PART",
+    "P_SIZE": "PART",
+    "P_CONTAINER": "PART",
+    "P_RETAILPRICE": "PART",
+    "P_COMMENT": "PART",
+    "S_SUPPKEY": "SUPPLIER",
+    "S_NAME": "SUPPLIER",
+    "S_ADDRESS": "SUPPLIER",
+    "S_NATIONKEY": "SUPPLIER",
+    "S_PHONE": "SUPPLIER",
+    "S_ACCTBAL": "SUPPLIER",
+    "S_COMMENT": "SUPPLIER",
+    "PS_PARTKEY": "PARTSUPP",
+    "PS_SUPPKEY": "PARTSUPP",
+    "PS_AVAILQTY": "PARTSUPP",
+    "PS_SUPPLYCOST": "PARTSUPP",
+    "PS_COMMENT": "PARTSUPP",
+    "C_CUSTKEY": "CUSTOMER",
+    "C_NAME": "CUSTOMER",
+    "C_ADDRESS": "CUSTOMER",
+    "C_NATIONKEY": "CUSTOMER",
+    "C_PHONE": "CUSTOMER",
+    "C_ACCTBAL": "CUSTOMER",
+    "C_MKTSEGMENT": "CUSTOMER",
+    "C_COMMENT": "CUSTOMER",
+    "O_ORDERKEY": "ORDERS",
+    "O_CUSTKEY": "ORDERS",
+    "O_ORDERSTATUS": "ORDERS",
+    "O_TOTALPRICE": "ORDERS",
+    "O_ORDERDATE": "ORDERS",
+    "O_ORDERPRIORITY": "ORDERS",
+    "O_CLERK": "ORDERS",
+    "O_SHIPPRIORITY": "ORDERS",
+    "O_COMMENT": "ORDERS",
+    "L_ORDERKEY": "LINEITEM",
+    "L_PARTKEY": "LINEITEM",
+    "L_SUPPKEY": "LINEITEM",
+    "L_LINENUMBER": "LINEITEM",
+    "L_QUANTITY": "LINEITEM",
+    "L_EXTENDEDPRICE": "LINEITEM",
+    "L_DISCOUNT": "LINEITEM",
+    "L_TAX": "LINEITEM",
+    "L_RETURNFLAG": "LINEITEM",
+    "L_LINESTATUS": "LINEITEM",
+    "L_SHIPDATE": "LINEITEM",
+    "L_COMMITDATE": "LINEITEM",
+    "L_RECEIPTDATE": "LINEITEM",
+    "L_SHIPINSTRUCT": "LINEITEM",
+    "L_SHIPMODE": "LINEITEM",
+    "L_COMMENT": "LINEITEM"
+  },
+  {
+    "NATION": [
+      "N_NATIONKEY"
+    ],
+    "REGION": [
+      "R_REGIONKEY"
+    ],
+    "PART": [
+      "P_PARTKEY"
+    ],
+    "SUPPLIER": [
+      "S_SUPPKEY"
+    ],
+    "PARTSUPP": [
+      "PS_PARTKEY",
+      "PS_SUPPKEY"
+    ],
+    "CUSTOMER": [
+      "C_CUSTKEY"
+    ],
+    "ORDERS": [
+      "O_ORDERKEY"
+    ],
+    "LINEITEM": [
+      "L_ORDERKEY",
+      "L_LINENUMBER"
+    ]
+  },
+  {
+    "NATION": [],
+    "REGION": [],
+    "PART": [],
+    "SUPPLIER": [],
+    "PARTSUPP": [],
+    "CUSTOMER": [],
+    "ORDERS": [],
+    "LINEITEM": []
+  },
+  {
+    "NATION": {
+      "N_NATIONKEY": "INTEGER",
+      "N_NAME": "CHAR(25)",
+      "N_REGIONKEY": "INTEGER",
+      "N_COMMENT": "VARCHAR(152)"
+    },
+    "REGION": {
+      "R_REGIONKEY": "INTEGER",
+      "R_NAME": "CHAR(25)",
+      "R_COMMENT": "VARCHAR(152)"
+    },
+    "PART": {
+      "P_PARTKEY": "INTEGER",
+      "P_NAME": "VARCHAR(55)",
+      "P_MFGR": "CHAR(25)",
+      "P_BRAND": "CHAR(10)",
+      "P_TYPE": "VARCHAR(25)",
+      "P_SIZE": "INTEGER",
+      "P_CONTAINER": "CHAR(10)",
+      "P_RETAILPRICE": "DECIMAL(15",
+      "P_COMMENT": "VARCHAR(23)"
+    },
+    "SUPPLIER": {
+      "S_SUPPKEY": "INTEGER",
+      "S_NAME": "CHAR(25)",
+      "S_ADDRESS": "VARCHAR(40)",
+      "S_NATIONKEY": "INTEGER",
+      "S_PHONE": "CHAR(15)",
+      "S_ACCTBAL": "DECIMAL(15",
+      "S_COMMENT": "VARCHAR(101)"
+    },
+    "PARTSUPP": {
+      "PS_PARTKEY": "INTEGER",
+      "PS_SUPPKEY": "INTEGER",
+      "PS_AVAILQTY": "INTEGER",
+      "PS_SUPPLYCOST": "DECIMAL(15",
+      "PS_COMMENT": "VARCHAR(199)"
+    },
+    "CUSTOMER": {
+      "C_CUSTKEY": "INTEGER",
+      "C_NAME": "VARCHAR(25)",
+      "C_ADDRESS": "VARCHAR(40)",
+      "C_NATIONKEY": "INTEGER",
+      "C_PHONE": "CHAR(15)",
+      "C_ACCTBAL": "DECIMAL(15",
+      "C_MKTSEGMENT": "CHAR(10)",
+      "C_COMMENT": "VARCHAR(117)"
+    },
+    "ORDERS": {
+      "O_ORDERKEY": "INTEGER",
+      "O_CUSTKEY": "INTEGER",
+      "O_ORDERSTATUS": "CHAR(1)",
+      "O_TOTALPRICE": "DECIMAL(15",
+      "O_ORDERDATE": "DATE",
+      "O_ORDERPRIORITY": "CHAR(15)",
+      "O_CLERK": "CHAR(15)",
+      "O_SHIPPRIORITY": "INTEGER",
+      "O_COMMENT": "VARCHAR(79)"
+    },
+    "LINEITEM": {
+      "L_ORDERKEY": "INTEGER",
+      "L_PARTKEY": "INTEGER",
+      "L_SUPPKEY": "INTEGER",
+      "L_LINENUMBER": "INTEGER",
+      "L_QUANTITY": "DECIMAL(15",
+      "L_EXTENDEDPRICE": "DECIMAL(15",
+      "L_DISCOUNT": "DECIMAL(15",
+      "L_TAX": "DECIMAL(15",
+      "L_RETURNFLAG": "CHAR(1)",
+      "L_LINESTATUS": "CHAR(1)",
+      "L_SHIPDATE": "DATE",
+      "L_COMMITDATE": "DATE",
+      "L_RECEIPTDATE": "DATE",
+      "L_SHIPINSTRUCT": "CHAR(25)",
+      "L_SHIPMODE": "CHAR(10)",
+      "L_COMMENT": "VARCHAR(44)"
+    }
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "PaperConflict": [
+    "contactId",
+    "paperId"
+  ],
+  "PaperComment": [
+    "paperId"
+  ],
+  "PaperReviewPreference": [
+    "paperId"
+  ],
+  "PaperTag": [
+    "paperId"
+  ],
+  "PaperOption":[
+    "paperId"
+  ]
+}
