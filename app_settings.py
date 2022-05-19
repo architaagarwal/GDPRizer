@@ -60,20 +60,6 @@ def getAppSettings(app_name):
         start_column = 'S_SUPPKEY'
         qgraph = True
         mode = "R"
-    elif app_name == 'hotcrp':
-        path = 'hotcrp'
-        schema_filename_json = path + '/schema.json'
-        parsed_queries_filename_json = path + '/parsed_queries.json'
-        filters_filename_json = path + '/filters.json'
-        pruning_filename_json = path + '/pruning.json'
-        db_name = 'testconf'
-        gt_filename = path + '/ground_truth_sql.txt'
-        vt_filename = path + '/virtual_tables.json'
-        edge_addition_file = 'NONE'
-        start_table = 'ContactInfo'
-        start_column = 'contactId'
-        qgraph = True
-        mode = "R"
     elif app_name == 'hotcrp_large':
         path = 'hotcrp_large'
         schema_filename_json = path + '/schema.json'
