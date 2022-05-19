@@ -12,7 +12,6 @@ from global_vars import *
 from graph import *
 from traversal import extractData
 from inclusion_dependency import *
-from addition import *
 from heuristics_graph import *
 from app_settings import *
 
@@ -21,10 +20,12 @@ GRAPH_H = 1
 UNION  = 2
 INTERSECTION = 3
 
-# Input: name of schema file
-# readSchema reads the schema and initializes Table objects for all the tables in tables_dx and tables_dx_upper
-# It also initializes the following fields of Table objects: tablename, colnames, obj_columns_dx
-# Also creates a dictionary mapping from colname to tablename. This dx is used for de-aliasing
+'''
+Input: name of schema file
+readSchema reads the schema and initializes Table objects for all the tables in tables_dx and tables_dx_upper
+It also initializes the following fields of Table objects: tablename, colnames, obj_columns_dx
+Also creates a dictionary mapping from colname to tablename. This dx is used for de-aliasing
+'''
 def readSchema(filename):
 	n_cols_in_schema = 0
 	with open(filename, "r") as f:
@@ -56,13 +57,6 @@ def readSchema(filename):
 		return uniq_col_to_table, uniq_col_to_table_upper, l[3], l[4]
 
 
-# this function is not currently being used
-# This initializes column objects for only foreign key columns
-def initializeFKObjects():
-	for tablename in tables_dx:
-		for fkname in tables_dx[tablename].fk:
-			tables_dx[tablename].obj_columns_dx[fkname] = Col(tablename, fkname, -1)
-
 
 def connectMySql(dbname):
 	# Connect to dbname on the local MySql server
@@ -88,8 +82,10 @@ def connectMySql(dbname):
 	return connection
 
 
-# takes a JSON filters file 
-# initializes tables_dx.filtered_colnames and tables_dx.non_filtered_colnames for all the tables
+'''
+takes a JSON filters file 
+initializes tables_dx.filtered_colnames and tables_dx.non_filtered_colnames for all the tables
+'''
 def processFilters(filters_json):
 	# if no filtering, we only set the list of non_filtered columns
 	if filters_json == "NONE":
@@ -113,6 +109,9 @@ def processFilters(filters_json):
 					table_obj_upper.non_filtered_colnames.append(colname.upper())
 
 
+'''
+checks if pruned edges are inclusion dependent
+'''
 def arePrunedEdgesInclusionDependent(edges_to_prune, db_conn):
 	not_id_edge = []
 	two_way = []
@@ -153,6 +152,9 @@ def arePrunedEdgesInclusionDependent(edges_to_prune, db_conn):
 	return
 
 
+'''
+prune all the edges incident on a column
+'''
 def processPruning(pruning_json, neigh_dx_names, db_conn):
 	# if no filtering, we only set the list of non_filtered columns
 	pruning_dx = {}
@@ -204,7 +206,6 @@ def processPruning(pruning_json, neigh_dx_names, db_conn):
 
 	
 	# GENERATING INCLUSION DEPENDENCY STATISTICS FOR PRUNED EDGES
-
 	# check if the pruned edges are inclusion dependent
 	arePrunedEdgesInclusionDependent(edges_to_prune, db_conn)
 
@@ -214,13 +215,19 @@ def processPruning(pruning_json, neigh_dx_names, db_conn):
 		n_cols_to_prune += len(pruning_dx[tablename])
 	global_stats_obj.n_columns_pruned = n_cols_to_prune
 
-# this function uses heuristics to deduce columns that should be filtered from the output
+
+'''
+this function uses heuristics to deduce columns that should be filtered from the output
+'''
 def inferFilters():
 	# heuristic 1: if a table is a mapping table, then it should be removed from the output
 	# a table is a mapping table if all its non-filtered columns have an edge on them (after pruning)
 	computeMappingTables()
-				
-# a table is a mapping table if all its non-filtered columns have an edge on them (after pruning)
+
+
+'''
+a table is a mapping table if all its non-filtered columns have an edge on them (after pruning)
+'''
 def computeMappingTables():
 	# a table is a mapping table if all its non-filtered columns are either pk or fk
 	for tablename in tables_dx:
@@ -242,12 +249,15 @@ def computeMappingTables():
 			
 			print(tablename, "is a mapping table ")
 
+
+'''
+reads all the queries in the ground truth file and runs them against the database
+'''
 def computeGroundTruth(ds_id, db_conn, gt_filename):
 	f = open(gt_filename, "r")
 
 	query = f.readline()
 	while(query):
-		# ans = re.findall('ds_id', query)
 		query = re.sub('ds_id', ds_id, query)
 		tablename = re.findall('FROM (\w+)', query)[0]
 		# Note: replacing * with non_filtered_colnames is just a hack to avoid writing the list of colnames in the ground truth file
@@ -266,14 +276,12 @@ def computeGroundTruth(ds_id, db_conn, gt_filename):
 			query = re.sub('\*', string_colnames, query)
 		else:
 			print(f"Error: More than one asterisk * in ground truth query: {query}")
-		# print(query, tablename, "\n ****** \n")
-		# print("in gt", query)
+	
 		output_data = db_conn.execute(query)
 
 		for row in output_data:
 			# will use False/True value to see if our traversal can successfully extract this row (False = UNSUCCESSFULL, True = SUCCESSFUL)
 			key = str(row)
-			# print(key)
 			tables_dx[tablename].result.gt[key] = False
 
 		# for initialization purposes set fn to be equal to the rows in ground truth
@@ -281,8 +289,10 @@ def computeGroundTruth(ds_id, db_conn, gt_filename):
 		tables_dx[tablename].result.fn = len(tables_dx[tablename].result.gt.keys())
 		query = f.readline()
 
-	# print("GROUND TRUTH \n", tables_dx['LINEITEM'].result.gt.keys())
 
+'''
+compute accuracy stats of GDPRizer
+'''
 def computeAccuracy(ds_id):
 	for tablename in tables_dx:
 		fp = tables_dx[tablename].result.fp
@@ -299,9 +309,6 @@ def computeAccuracy(ds_id):
 
 		# precision: what fraction of what you pulled was correct
 		if tp + fp == 0: # we did not extract anything
-			# if fn == 0: # and there was nothing to extract
-			# 	precision = 1.0
-			# else: # otherwise
 			precision = 1.0
 		else:
 			precision = tp / (tp + fp)
@@ -318,7 +325,7 @@ def computeAccuracy(ds_id):
 		tables_dx[tablename].precision += precision
 		tables_dx[tablename].recall += recall
 
-		# only include this DS into final prec computation if the following holds (inflated avgs business)
+		# only include this DS into final prec computation if the following holds (inflated avgs)
 		if (tp != 0 and (fp == 0 and fn == 0)) or fp > 0:
 			tables_dx[tablename].deflated_precision += precision
 			tables_dx[tablename].deflated_n_ds_prec += 1
@@ -336,37 +343,6 @@ def computeAccuracy(ds_id):
 			tables_dx[tablename].min_bad_rec = min(tables_dx[tablename].min_bad_rec, recall)
  
 
-
-# print DS IDs with suboptimal prec and/or recall
-def printBadAccuracyDSIds():
-	# unique set of ds ids
-	unique_ids = set()
-
-	print("\n*** Bad Precision and Recall DS ids ***")
-	for tablename in tables_dx:
-		bad_prec_ds = tables_dx[tablename].bad_prec_ds
-		bad_rec_ds = tables_dx[tablename].bad_rec_ds
-		
-		unique_ids.update(int(ds_id) for (ds_id, _) in bad_prec_ds)
-		unique_ids.update(int(ds_id) for (ds_id, _) in bad_rec_ds)
-
-		if bad_prec_ds or bad_rec_ds:
-			print("-----" + tablename + "------")
-			
-		
-		if bad_prec_ds: 
-			print("Bad precision DS ids: ")
-			print(f'{tables_dx[tablename].bad_prec_ds}')
-			print("Min Precision:", tables_dx[tablename].min_bad_prec)
-		
-		if bad_rec_ds: 
-			print("Bad recall DS ids: ")
-			print(f'{tables_dx[tablename].bad_rec_ds}')
-			print("Min Recall:", tables_dx[tablename].min_bad_rec)
-
-	print("\n*** Unique DS ids for Bad Precision and Recall ***")
-	print(sorted(unique_ids))
-	print(f'Total number of imperfect DS ids: {len(unique_ids)}.')
 
 def computeInfAccPerTable(num_ds_ids):
 	print("\n*** Inflated Averaged Results ***")
@@ -399,7 +375,9 @@ def computeDefAccPerTable():
 		tables_dx[tablename].avg_dr = avg_dr
 		print(f'{tablename:21}: Prec = {avg_dp:4.2} | Rec = {avg_dr:4.2} | num_p = {numer_p:4} | denom_p = {denom_p:4} | num_r = {numer_r:4} | denom_r = {denom_r:4}')
 
-# for each table, computes F1 scores from their deflated precision and recall 
+'''
+for each table, computes F1 scores from their deflated precision and recall 
+'''
 def computeF1PerTable():
 	print("\n*** F1 Results ***")
 	for tablename in tables_dx:
@@ -438,10 +416,15 @@ def	computeAvgAcc():
 	print('Average Deflated Recall: ', avg_dr/n_tables)
 	print('Average Deflated F1: ', f1/n_tables)
 
+
+
 def initializeDataObjects(ds_id):
 	for tablename in tables_dx:
 		tables_dx[tablename].result = Data(ds_id, tablename)
 
+'''
+reads column addition customizations from the right file and updates the relationship graph
+'''
 def createVirtualTables(filename, db_conn):
 	if filename == "NONE":
 		return
@@ -486,37 +469,14 @@ def createVirtualTables(filename, db_conn):
 			# print(view_query)
 			output_data = db_conn.execute(view_query)
 
+'''
+cleans up virtual tables from the sql database instance
+'''
 def cleanVirtualTables(db_conn):
 	for tablename in tables_dx.keys():
-		if True: #tables_dx[tablename].is_virtual:
-			query = "DROP VIEW IF EXISTS V_" + tablename 
-			db_conn.execute(query)
+		query = "DROP VIEW IF EXISTS V_" + tablename 
+		db_conn.execute(query)
 
-def test(db_conn):
-
-	# for table_obj in tables_dx.values():
-	# 	print(table_obj.result)
-
-	print("********")
-	# query1 = "create view test as select paperId as hello from Paper;"
-	# output_data1 = db_conn.execute(query1)
-
-	query2 = "select paperId, v_author from V_Paper;"
-	output_data2 = db_conn.execute(query2)
-
-	# print(output_data1, str(output_data1)
-	for row in output_data2:
-		# print("******", row, type(row))
-		s1 = str(row)
-		print(s1, type(s1))
-
-	print("^^^^^^^")
-
-	n_cols = 0
-	for tablename in tables_dx.keys():
-		n_cols += len(tables_dx[tablename].colnames)
-	global_stats_obj.n_cols_in_schema = n_cols
-	# print("Total number of columns in schema")
 
 def printStats():
 	print("***** Printing customization stats *****")
@@ -549,16 +509,6 @@ def printStats():
 	print("***********************************")
 	print ("n_edges_operated_graph:", global_stats_obj.n_edges_in_operated_graph)
 
-def createEdges(nodes_dx, edges_dx, neigh_dx_names, schema, dt_dx, p_table, use_inc_dep, verified=[]):
-	# The last non-optional argument to GraphAddition is use_inc_dep. Set to:
-	#   - True = use inclusion dependencies for edge addition
-	#   - False = use datatype matching for edge addition
-	g = GraphAddition(nodes_dx, edges_dx, neigh_dx_names, schema, dt_dx, p_table, verified, use_inc_dep)
-
-	if g.checkDisconnectedComponents():
-		g.connectComponents()
-		nodes_dx, edges_dx, neigh_dx_names = g.getNewGraph()
-	return nodes_dx, edges_dx, neigh_dx_names
 
 '''
 read edge customizations and update the relationship graph
@@ -590,7 +540,10 @@ def createEdgesFromFile(nodes_dx, edges_dx, neigh_dx_names, schema, edges_filena
 	
 	return nodes_dx, edges_dx, neigh_dx_names
 
-# function that operates on two graphs as specifiec
+'''
+function that operates on two graphs as specified by 'operation' parameter
+operation parameter can be set as INTERSECTION, or UNION
+'''
 def operateGraphs(operation, nodes_dx_1, nodes_dx_2, edges_dx_1, edges_dx_2, neigh_dx_names_1, neigh_dx_names_2):
 	if operation == UNION:
 		# combining the edges from both the graphs
@@ -608,7 +561,7 @@ def operateGraphs(operation, nodes_dx_1, nodes_dx_2, edges_dx_1, edges_dx_2, nei
 		print("Invalid operation")
 		exit(0)
 	
-	# small graph
+	# small graph for graphviz
 	header = createSmallGraphHeader(tables_dx_upper, nodes_dx_1)
 	# write the graph in a file
 	f = open("operated_graph.txt", "w")
@@ -617,6 +570,9 @@ def operateGraphs(operation, nodes_dx_1, nodes_dx_2, edges_dx_1, edges_dx_2, nei
 
 	return nodes_dx_1, edges_dx_1, neigh_dx_names_1 
 
+'''
+function that collects some stats on the input graph and simply returns it back
+'''
 def operateOneGraph(operation, nodes_dx_1, edges_dx_1, neigh_dx_names_1):
 	# function to make running experiments easier, returns whatever it is given
 	# operation passed for readability
@@ -717,17 +673,9 @@ def main():
 
 
 	############# Graph Customizations ###################
-	# see if user wants to add some edges to this graph
 	nodes_dx, edges_dx, neigh_dx_names = createEdgesFromFile(nodes_dx, edges_dx, neigh_dx_names, tables_dx, app_settings.edge_addition_file)
-
-	# NOTE: for filters
 	processFilters(app_settings.filters_json)
-	# # remove pruned edges and create adjacency lists in form of column objects instead of column names
 	processPruning(app_settings.pruning_json, neigh_dx_names, db_conn)
-
-	# # also check if the edges to be pruned are functional dependencies
-	# TODO: finish this function
-	# checkIntersectionWithFDs(fd_edges_list, pruned_edges_list)
 	# # NOTE: Do not put inferFilters() before processPruning() as some heuristics (e.g. mapping-tables) depend on edges to be pruned first
 	if app_settings.filters_json != "NONE":
 		inferFilters()
@@ -754,11 +702,10 @@ def main():
 	# ######################################
 	computeAccPerTable(num_ds_ids)
 	computeAvgAcc()
-	# printBadAccuracyDSIds()
 	# ######################################
 	cleanVirtualTables(db_conn)
 	# ######################################
-	# # print stats for the paper
+	# print stats
 	printStats()
 
 if __name__ == '__main__':
