@@ -1,14 +1,41 @@
 from data_structures import *
 
+'''
+app_name: name of the application, e.g. TPCH, HotCRP, etc
+path: folder name where code looks for schema, customizations, passed_query files
+schema_filename_json: schema json file produced by cleanData.py
+parsed_queries_filename_json: parsed queries json file produced by cleanData.py
+
+filters_filename_json: column filtering customization.  If not needed, set it to 'NONE'
+pruning_filename_json: column pruning customization.  If not needed, set it to 'NONE'
+gt_filename: ground truth filename
+db_name: name of the database
+vt_filename: column addition customization. If not needed, set it to 'NONE'
+edge_addition_file: edge addition customization. If not needed, set it to 'NONE'
+start_table: name of the primary table
+start_column: primary column of the primary table
+qgraph: [DEPRECATED] 
+mode: set it to one of the following depending on the source of information for the relationship graph, S: schema, Q: Queries, D: Data-driven sources
+    "R": foreign-keys union queries (S union Q in paper)
+    "H": only data-driven relationships (D in paper)
+    "S": only schema
+    "cap": ((S union Q) intersection D))
+    "H_UNION_S": (S union D in paper)
+    "H_UNION_S_CAP_R": ((Q intersection D) union S)
+    "Q_CAP_H": (Q intersection D)
+    "Q_CAP_H_CAP_S": Q intersection S intersection D
+'''
+
 def getAppSettings(app_name):
     # defining app and role specific parameters
+
+    # TPCH for the customer role
     if app_name == 'tpch_cust':
         path = 'tpch'
         app_name = 'tpch'
         schema_filename_json = path + '/schema.json'
         parsed_queries_filename_json = path + '/parsed_queries.json'
-        # NOTE: If no filtering is needed, set filters_filename_json to NONE
-        filters_filename_json = 'NONE' #app_name + '/filters_customer.json'
+        filters_filename_json = 'NONE'
         pruning_filename_json = path + '/pruning_customer.json'
         gt_filename = path + '/ground_truth_customer_sql.txt'
         db_name = 'tpch_tiny'
@@ -23,8 +50,7 @@ def getAppSettings(app_name):
         app_name = 'tpch'
         schema_filename_json = path + '/schema.json'
         parsed_queries_filename_json = path + '/parsed_queries.json'
-        # NOTE: If no filtering is needed, set filters_filename_json to NONE
-        filters_filename_json = 'NONE' #app_name + '/filters_supplier.json'
+        filters_filename_json = 'NONE' 
         pruning_filename_json = path + '/pruning_supplier.json'
         gt_filename = path + '/ground_truth_supplier_sql.txt'
         db_name = 'tpch_tiny'
@@ -77,7 +103,6 @@ def getAppSettings(app_name):
         qgraph = True
         mode = "CAP"
     elif app_name == 'hotcrp_large_h':
-        # app_name = 'hotcrp_large'
         path = 'hotcrp_large/h'
         schema_filename_json = path + '/schema.json'
         parsed_queries_filename_json = path + '/parsed_queries.json'
@@ -85,7 +110,7 @@ def getAppSettings(app_name):
         pruning_filename_json = path + '/pruning.json'
         db_name = 'hotcrp_large'
         gt_filename = path + '/ground_truth_sql.txt'
-        vt_filename = 'NONE' #app_name + '/virtual_tables.json'
+        vt_filename = 'NONE' 
         edge_addition_file = path + '/additions.txt'
         start_table = 'ContactInfo'
         start_column = 'contactId'
@@ -106,11 +131,10 @@ def getAppSettings(app_name):
         qgraph = True
         mode = "R"
     elif app_name == 'lobsters_h':
-        # app_name = 'lobsters'
         path = 'lobsters/h'
         schema_filename_json = path + '/schema.json'
         parsed_queries_filename_json = path + '/parsed_queries.json'
-        filters_filename_json = 'NONE' #path + '/filters.json'
+        filters_filename_json = 'NONE' 
         pruning_filename_json = path + '/pruning.json'
         db_name = "lobsters"
         gt_filename = path + '/ground_truth_sql.txt'
@@ -121,7 +145,6 @@ def getAppSettings(app_name):
         qgraph = True
         mode = "H"
     elif app_name == 'lobsters_cap':
-        # app_name = 'lobsters'
         path = 'lobsters/h_cap_r'
         schema_filename_json = path + '/schema.json'
         parsed_queries_filename_json = path + '/parsed_queries.json'

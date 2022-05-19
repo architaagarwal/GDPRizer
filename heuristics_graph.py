@@ -3,8 +3,10 @@ from graph import createSmallGraphHeader
 from global_vars import *
 from queryParser import updateNeighborhood
 
-# Function to create a graph using the heuristics
-# Returns nodes_dx, edges_dx, neigh_dx
+'''
+Function to create a data-driven heuristic graph 
+Returns nodes_dx, edges_dx, neigh_dx
+'''
 def createGraphFromHeuristics(tables_dx, tables_dx_upper, dt_dx, db_conn, formatted_neigh_dx, heuristic_no=-1, th=-1, combined=False, th_dx={}, printing=False):
 	nodes_dx,  edges_dx, neigh_dx = {}, {}, {}
 
@@ -75,7 +77,7 @@ def createGraphFromHeuristics(tables_dx, tables_dx_upper, dt_dx, db_conn, format
 	
 	# small graph
 	header = createSmallGraphHeader(tables_dx_upper, nodes_dx)
-	# write the graph in a file
+	# write the graph in a file for graphviz
 	f = open("heuristics_graph.txt", "w")
 	f.write("graph G {" + "\n".join(header) + "\n".join(edges_dx.keys()) + "}")
 	f.close()

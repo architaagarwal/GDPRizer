@@ -560,6 +560,9 @@ def createEdges(nodes_dx, edges_dx, neigh_dx_names, schema, dt_dx, p_table, use_
 		nodes_dx, edges_dx, neigh_dx_names = g.getNewGraph()
 	return nodes_dx, edges_dx, neigh_dx_names
 
+'''
+read edge customizations and update the relationship graph
+'''
 def createEdgesFromFile(nodes_dx, edges_dx, neigh_dx_names, schema, edges_filename):
 	if edges_filename == 'NONE':
 		return nodes_dx, edges_dx, neigh_dx_names
@@ -630,22 +633,8 @@ def operateOneGraph(operation, nodes_dx_1, edges_dx_1, neigh_dx_names_1):
 
 def main():
 	######## DEFINE APP-SPECIFIC PARAMETERS #####
-	# app_name = 'tpch_cust'
-	# app_name = 'tpch_supp'
-	# app_name = 'hotcrp'
-	# app_name = 'hotcrp_large'
-	# app_name = 'hotcrp_large_cap'
-	# app_name = 'hotcrp_large_h'
-	# app_name = 'lobsters'
-	# app_name = 'lobsters_h'
-	# app_name = 'lobsters_cap'
-	# app_name = 'lobsters_h_union_s'
+	# Use one of the app_name(s) specifed in app_settings.py
 	app_name = 'lobsters_h_union_s__cap_r'
-	# app_name = 'wordpress'
-	# app_name = 'wordpress_h'
-	# app_name = 'wordpress_cap'
-	# app_name = 'wordpress_plugins'
-	# app_name = 'wordpress_plugins_cap'
 	app_settings = getAppSettings(app_name)
 	
 	##################################################
@@ -655,14 +644,14 @@ def main():
 	# uniq_col_to_table is a DX: key = colname, value = tablename. This only contains those columns which appear in a SINGLE table
 	uniq_col_to_table, uniq_col_to_table_upper, fk_dx, dt_dx = readSchema(app_settings.schema_json)
 	use_queries = app_settings.qgraph
-	# neigh_dx_names stores neighborhoods. key = (tablename,  colname), value = set of (tablename, colname) pairs
-	# create Graph from schema + queries
 
+	# neigh_dx_names stores neighborhoods. key = (tablename,  colname), value = set of (tablename, colname) pairs
+	# create query and schema graphs (both for visual code and for traversal code)
 	nodes_dx_s, edges_dx_s, neigh_dx_names_s = createGraphFromFk(fk_dx, tables_dx)
 	nodes_dx_q, edges_dx_q, neigh_dx_names_q = createGraphFromQueries(tables_dx, tables_dx_upper, uniq_col_to_table, uniq_col_to_table_upper, app_settings.parsed_queries_json)
 	
-	##################### This section for heuristics #############
-	# create Graph from heuristics
+	##################### This section for data-driven heuristics #############
+	# create data-driven graph from data-driven heuristics
 	pickle_nodes = Path(app_settings.path+"/nodes")
 	pickle_edges = Path(app_settings.path+"/edges")
 	pickle_neigh = Path(app_settings.path+"/neigh")
@@ -679,11 +668,8 @@ def main():
 	else:
 		# to run:
 		## individual heuristic use the arguments heuristic_no and th
-		# nodes_dx_2, edges_dx_2, neigh_dx_names_2 = createGraphFromHeuristics(tables_dx, tables_dx_upper, dt_dx, db_conn, formatNeigh(neigh_dx_names_1), heuristic_no=NAMEMATCH, th=0.3)
 		# combined heuristics set the argument combined to True and pass a th_dx of thresholds
 		th_dx = {'oor_th': 0.2, 'cover_th': 0.8, 'wilcoxon_th': 0.7, 'name_th': 1.0}
-		# NOTE: we are currently passing in neigh_dx_names_s but should pass neigh_dx_names_r
-		# NOTE: can't simply change it because union1 and union2 happen in-place
 		nodes_dx_h, edges_dx_h, neigh_dx_names_h = createGraphFromHeuristics(tables_dx, tables_dx_upper, dt_dx, db_conn, formatNeigh(neigh_dx_names_s), combined=True, th_dx=th_dx, printing=True)
 
 		# serializing for later use
@@ -696,11 +682,10 @@ def main():
 		pickle.dump(neigh_dx_names_h, outfile)
 		outfile.close()
 
+	#####################################################################
 
-	# combine the two graphs above
-	# use GRAPH_R for only relationship edges, use GRAPH_H for only heuristic edges
+	# combine the three graphs above as specified by the 'mode' in app_settings.py
 	mode = app_settings.mode
-
 	if mode == "R":
 		nodes_dx, edges_dx, neigh_dx_names = operateGraphs(UNION, nodes_dx_s, nodes_dx_q, edges_dx_s, edges_dx_q, neigh_dx_names_s, neigh_dx_names_q)
 	elif mode == "H":
@@ -724,25 +709,15 @@ def main():
 		nodes_dx_r, edges_dx_r, neigh_dx_names_r = operateGraphs(UNION, nodes_dx_s, nodes_dx_q, edges_dx_s, edges_dx_q, neigh_dx_names_s, neigh_dx_names_q)
 		nodes_dx_hs, edges_dx_hs, neigh_dx_names_hs = operateGraphs(UNION, nodes_dx_s_copy, nodes_dx_h, edges_dx_s_copy, edges_dx_h, neigh_dx_names_s_copy, neigh_dx_names_h)
 		nodes_dx, edges_dx, neigh_dx_names = operateGraphs(INTERSECTION, nodes_dx_r, nodes_dx_hs, edges_dx_r, edges_dx_hs, neigh_dx_names_r, neigh_dx_names_hs)
-
 	else:
 		print("Incorrect mode set in app settings")
 		exit(1)
-	
 	###############################################################
-
-	# returns functional dependencies
-	# fd_edges_list = getFunctionalDependencies(tables_dx, neigh_dx_names, dt_dx, db_conn, global_stats_obj.n_edges_in_rel_graph)
-
 	#######################################################
+
+
 	############# Graph Customizations ###################
 	# see if user wants to add some edges to this graph
-	# TODO: edit this function for if we want to suggest edges using heuristics without running getFD
-	# set this boolean to true to use the inclusion dependent edges in the addition prompt
-	# pass the edges in fd_edges_list
-	# use_inc_dep = False
-	# nodes_dx, edges_dx, neigh_dx_names = createEdges(nodes_dx, edges_dx, neigh_dx_names, tables_dx, dt_dx, app_settings.start_table, use_inc_dep)
-
 	nodes_dx, edges_dx, neigh_dx_names = createEdgesFromFile(nodes_dx, edges_dx, neigh_dx_names, tables_dx, app_settings.edge_addition_file)
 
 	# NOTE: for filters

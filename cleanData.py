@@ -1,6 +1,6 @@
 ## 
 # This file cleans the data, reads the schema and parses the queries
-# Produces three files: clean_hotcrp-querylog.txt, schema.json and parsed_queries.json
+# Produces three files: clean_querylog.txt, schema.json and parsed_queries.json
 ##
 import csv
 import re
@@ -9,8 +9,9 @@ import json
 from moz_sql_parser import parse
 import functools
 
-# Function cleanQuery removes parts of the query that the parser cannot handle
-# TODO: Check if losing anything meaningful
+'''
+Function cleanQuery removes parts of the query that the parser cannot handle
+'''
 def cleanQuery(query):
 	# If the query has substring, ignore that part 
 	query_nosubs_comment = query.replace("substring(PaperComment.comment from 1 for ?)", "substring_comment")
@@ -25,9 +26,11 @@ def cleanQuery(query):
 
 	return query_clean
 
-# Function: findCloseParan finds the index of the close paranthesis corresponding to the open given
-# Input: target string, index of open paranthesis
-# Output: index of close paranthesis
+'''
+Function: findCloseParan finds the index of the close paranthesis corresponding to the open given
+Input: target string, index of open paranthesis
+Output: index of close paranthesis
+'''
 def findCloseParan(target, open_paran):
 	parans = [open_paran]
 	index = open_paran
@@ -40,10 +43,11 @@ def findCloseParan(target, open_paran):
 			popped = parans.pop()
 	# When the popped paranthesis is the first one, the matching paranthesis is in index
 	return index	
-
-# Function: findReplaceCol finds the columnname to replace the clause given
-# Input: target string, index of open paranthesis
-# Output: columnname to replace the clause
+'''
+Function: findReplaceCol finds the columnname to replace the clause given
+Input: target string, index of open paranthesis
+Output: columnname to replace the clause
+'''
 def findReplaceCol(target, open_paran):
 	# Invalid keywords
 	# TODO: Check if anything other than max, min, if, concat is used
@@ -63,10 +67,11 @@ def findReplaceCol(target, open_paran):
 	if replace_col in keywords:
 		replace_col = findReplaceCol(target, endIndex)
 	return replace_col
-
-# Function: cleanClause removes a clause from the query
-# Input: query with clause
-# Output: query with clause replaced by some column name
+'''
+Function: cleanClause removes a clause from the query
+Input: query with clause
+Output: query with clause replaced by some column name
+'''
 def cleanClause(query, clause):
 	# Find the first occurrence of clause
 	index = query.find(clause)
@@ -83,17 +88,17 @@ def cleanClause(query, clause):
 		cleaned_query = cleanClause(cleaned_query, clause)
 	return cleaned_query
 
-
+'''
+Reads the query file ("querylog.csv"), cleans the queries, and writes the cleaned queries in a separate txt file ("clean_querylog.txt")
+'''
 def cleanData(readFile, writeFile):
 	f = open(writeFile,'w')
 	with open(readFile) as csvfile:
 		reader = csv.DictReader(csvfile)
-		# All 188 queries found
 		i = 0
 		j = 0
 		for row in reader:
 			i += 1
-			# str_join = "join"
 			str_coal = "coalesce"
 			str_group = "group_concat"
 			str_interval = "interval"
@@ -102,44 +107,42 @@ def cleanData(readFile, writeFile):
 
 			print("i -", i)
 
-			# Queries that have joins
-			# if str_join in query:
-			if True:
-				# Skipping non-select queries that the parser cannot handle
-				if query[:4] in ['alte','crea','dele','inse','lock','unlo','show','upda']:
-					continue
-				# Skipping select queries that the parser cannot handle
-				# check with MG: AA added 'substring' and 'sum' clauses in the following line
-				if 'collate' in query or 'substring' in query:# or 'sum' in query:
-					continue
-				j += 1
-				# print(str(i))
-				# Handling queries with special placeholder for a comparator
-				if i in [182, 207]:
-					query = query.replace("?a", "> a")
-				# Handling query 267 complicated sum clause
-				if i==267:
-					query = cleanClause(query, "sum")
-				# Handling group_concat clauses by substituting column name
-				if str_group in query:
-					query = cleanClause(query, str_group)
-				# Handling coalesce clauses by substituting column name
-				if str_coal in query:
-					query = cleanClause(query, str_coal)
-				
-				# Check with MG: Handling interval clauses by substituting it with empty string
-				if str_interval in query:
-					query = re.sub("[+-] interval '\w+' month|[+-] interval '\w+' year|[+-] interval '\w+' day", " ", query)
+			# Queries that have explicit/implicit joins
+			# Skipping non-select queries that the parser cannot handle
+			if query[:4] in ['alte','crea','dele','inse','lock','unlo','show','upda']:
+				continue
+			# Skipping select queries that the parser cannot handle
+			if 'collate' in query or 'substring' in query:
+				continue
+			j += 1
 
-				# Check with MG
-				if str_extract in query:
-					query = re.sub("extract\(\w+ \w+ \w+\) as \w+", "extract_clause", query)
-				# Cleaning anything remaining the parser cannot handle
-				clean_query = cleanQuery(query)
-				f.write(clean_query+"\n")
+			# Handling queries with special placeholder for a comparator in our HotCRP querylog
+			if i in [182, 207]:
+				query = query.replace("?a", "> a")
+			# Handling query 267 complicated sum clause in our HotCRP querylog
+			if i==267:
+				query = cleanClause(query, "sum")
+
+			# Handling group_concat clauses by substituting column name
+			if str_group in query:
+				query = cleanClause(query, str_group)
+			# Handling coalesce clauses by substituting column name
+			if str_coal in query:
+				query = cleanClause(query, str_coal)
+			
+			if str_interval in query:
+				query = re.sub("[+-] interval '\w+' month|[+-] interval '\w+' year|[+-] interval '\w+' day", " ", query)
+
+			if str_extract in query:
+				query = re.sub("extract\(\w+ \w+ \w+\) as \w+", "extract_clause", query)
+			# Cleaning anything remaining the parser cannot handle
+			clean_query = cleanQuery(query)
+			f.write(clean_query+"\n")
 	f.close()
 
-# DO NOT change the order of values in original l
+'''
+takes a list of column names as input and removes the repeated column names
+'''
 def removeDups(l):
 	final = []
 	dx = {}
@@ -147,20 +150,22 @@ def removeDups(l):
 		if v in dx:
 			continue
 		else:
+			# DO NOT change the order of column names. Keep them as it is in the input l.
 			final.append(v)
 			dx[v] = True
 	return final
 
-# Input: 
-#	s: a string representing the CREATE TABLE statement of the specified table
-# Output: 
-# 	1) a list of strings, containing the table name and column names in the table
-#	2) a dictionary mapping the column names in the table to their datatypes
-# Assumptions: 
-# - clauses are split with ','
-# - clauses which define columns always begin with backticks
-# - first clause will always contain the table name and the first column
-
+'''
+Input: 
+	s: a string representing the CREATE TABLE statement of the specified table
+Output: 
+	1) a list of strings, containing the table name and column names in the table
+	2) a dictionary mapping the column names in the table to their datatypes
+Assumptions: 
+- clauses are split with ','
+- clauses which define columns always begin with backticks
+- first clause will always contain the table name and the first column
+'''
 def cleanTable(s):
 	
 	clauses = s.split(',')
@@ -186,16 +191,16 @@ def cleanTable(s):
 	return keywords, data_types
 
 
-# Input: 
-#	readFile: name of the schema file
-# 	writeFille: output filename
-# Output: a file with dictionary (JSON) where keys are table names and values are set of column names
-# Assumptions: 
-	# 1. Queries are separated by semicolon
-	# 2. table names and column names are wrapped in backquotes
-	# 3. primary keys are listed exactly as follows: PRIMARY KEY (`key1`, `key2`, `key3`)
-# Bug: might return extra column names. 
-	# E.g., column names returned corresponding to UNIQUE KEY name
+'''
+Input: 
+	readFile: name of the schema file
+	writeFille: output filename
+Output: a file with dictionary (JSON) where keys are table names and values are set of column names
+Assumptions: 
+	1. Queries are separated by semicolon
+	2. table names and column names are wrapped in backquotes
+	3. primary keys are listed exactly as follows: PRIMARY KEY (`key1`, `key2`, `key3`)
+'''
 def createSchema(readFile, writeFile):
 	fd = open(readFile, 'r')
 	sqlFile = fd.read()
@@ -256,41 +261,40 @@ def createSchema(readFile, writeFile):
 			
 			nTables += 1
 
-	# remove the duplicate entries  from schema_col_to_table
+	# remove the duplicate entries from schema_col_to_table
 	for col, table in temp_col_to_table.items():
 		if table != "DUPLICATE":
 			schema_col_to_table[col] = table
 		
 	
-	#print(schema_table_to_col)
 	with open(writeFile, 'w') as fp:
-		# json.dump([schema_table_to_col, schema_col_to_table, pk_dx, fk_dx], fp, indent=2)
 		json.dump([schema_table_to_col, schema_col_to_table, pk_dx, fk_dx, table_to_col_to_data_type], fp, indent=2)
 	return
 
-
-
+'''
+Reads the cleaned queries from "clean_querylog.txt", parses each one of them into json format using moz_sql_parser, and writes the json in "parsed_queries.json".
+'''
 def parseQueries(query_file, parsed_file):
 	fr = open(query_file,'r')
-	clean_query = "hello"
+	clean_query = "initial_true_value"
 	i = 0
 	n_failed_to_parse_queries = 0
 	parsed_query_list = []
 
-	print("Came here!!!")
 	while clean_query:
 		i += 1
 		clean_query = fr.readline()
 		if not clean_query:
 			break
-		# print("****", clean_query)
+
+		# if moz_sql_parser cannot handle the query, ignore and continue to the next
 		try:
 			json_dict = parse(clean_query.upper())
 		except Exception as err:
 			n_failed_to_parse_queries += 1
 			print("********", clean_query)
 			print("Some error")
-		# json_dict = parse(clean_query)
+		
 		parsed_query_list.append(json_dict)
 
 	print("Total No of queries parsed = ", i, "Failed to parse = ", n_failed_to_parse_queries)
@@ -299,31 +303,17 @@ def parseQueries(query_file, parsed_file):
 	return
 
 
-def readSchemaTester(filename):
-	with open(filename, "r") as f:
-		print("Converting JSON encoded data into Python dictionary")
-		l = json.load(f)
-		# l[0] is dx_table_to_col and l[1] is dx_col_to_table
-		#print(dx[1]["tagIndex"])
-		print(dx[0]["ActionLog"])
-
-
-
 if __name__ == '__main__':
 	app_name = "tpch"
 	# create the clean data file
-	# cleanData(app_name + '/querylog.csv', app_name + '/clean_querylog.txt')
+	cleanData(app_name + '/querylog.csv', app_name + '/clean_querylog.txt')
 	print('CLEANED DATA')
+
 	# read the schema and, create and store two dictionaries in schema.json
 	# two dictionaries: schema_table_to_col, schema_uniq_col_to_table
 	createSchema(app_name + '/schema.sql', app_name + '/schema.json')
-	# createSchema(app_name + '/schema.sql', app_name + '/schema.json')
 
-	# just a tester to see if schema.json is being read correctly
-	#readSchemaTester('schema.json')
-
-	# parseQueries(app_name + '/clean_querylog.txt', app_name + '/parsed_queries.json')
-	# TPCH -- clean dates, skip create, change substring, extract
-	# parseQueries(app_name + '/clean_querylog.txt', app_name + '/parsed_queries.json')
+	# read and parse the queries
+	parseQueries(app_name + '/clean_querylog.txt', app_name + '/parsed_queries.json')
 
 

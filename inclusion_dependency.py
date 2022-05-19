@@ -209,7 +209,6 @@ def applyHeuristic(edge_list, heuristic_no, db_conn, th = 1):
     return verified
 
 def runIndividualHeuristics(inclusion_edges_list, db_conn, formatted_neigh_dx, n_edges_in_rel_graph, f):
-    
     # oor
     th = 0
     while (th <= 0.4):

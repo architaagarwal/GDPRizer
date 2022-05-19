@@ -49,6 +49,9 @@ def createSmallGraphHeader(schema, nodes_dx):
 	return header
 
 
+'''
+creates foreign-key relationship graph from schema
+'''
 def createGraphFromFk(fk_dx, schema):
 	# fk_dx is a dictionary from tablename to list of triples
 	# triples : (fk_col, table_pointed_to, col_pointed_to)

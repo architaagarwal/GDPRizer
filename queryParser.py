@@ -167,6 +167,9 @@ def convertToRightCase(ls, label):
 	print("SOMETHING WENT WRONG: NO MATCHING FOUND FOR TABLE: ", label)
 	return "CASE_ERROR"
 
+'''
+create the query graph from parsed queries (constructed by cleanData.py)
+'''
 def createGraphFromQueries(schema, schema_upper, uniq_col_to_table, uniq_col_to_table_upper, parsed_queries_filename_json):
 	# since we do not know whether the the queries and the schema would be in the same case (upper or lower)
 	# we use the uppercase data-structures to test whether a key (for eg, a tablename or a colname) exists or not
@@ -183,15 +186,13 @@ def createGraphFromQueries(schema, schema_upper, uniq_col_to_table, uniq_col_to_
 		parsed_queries = json.load(fr)
 		i = 0
 		for json_dict in parsed_queries:
-			# All 188 queries found
 			aliases = {} # dictionary with key = alias, value = original name
 			join_list = [] # list of list
 			i += 1	
 			process(json_dict, join_list, aliases, False, "")
-			# print(join_list)
-			# print("******\n", aliases)
+		
 			for eq_list in join_list:
-				# print("in query ", i, " eq_list is ", eq_list )
+
 				# de-alias the two end points of each equality
 				ltable, lcol = deAlias(eq_list[0], aliases, schema_upper, uniq_col_to_table_upper)
 				rtable, rcol = deAlias(eq_list[1], aliases, schema_upper, uniq_col_to_table_upper)
@@ -219,8 +220,6 @@ def createGraphFromQueries(schema, schema_upper, uniq_col_to_table, uniq_col_to_
 					else:
 						invalid_edges += 1
 						# print("invalid edge found", edge, eq_list)
-
-				#TODO: AA: aliases have "." in them. Resolve that -- due to this "." are appearing in graph.txt
 				
 				# if edge is valid, add its endpoints as foreign keys
 				if(is_valid):
@@ -232,14 +231,7 @@ def createGraphFromQueries(schema, schema_upper, uniq_col_to_table, uniq_col_to_
 					rtable = convertToRightCase(schema.keys(), rtable)
 					lcol = convertToRightCase(schema[ltable].colnames, lcol)
 					rcol = convertToRightCase(schema[rtable].colnames, rcol)
-					# updateValidDXs(ltable, lcol, rtable, rcol, valid_edges_dx, schema)
 					updateFks(ltable, lcol, rtable, rcol, schema)
 					updateNeighborhood(ltable, lcol, rtable, rcol, neigh_dx)
 
-	# print("i = ", i, " valid = ", valid_edges_count, "invalid = ", invalid_edges)
 	return nodes_dx, edges_dx, neigh_dx
-		
-# def print_dx(dx):
-# 	for k, v in dx.items():
-# 		print(k, " : ", v)	
-# 	print("num of keys:", len(dx.items()))
