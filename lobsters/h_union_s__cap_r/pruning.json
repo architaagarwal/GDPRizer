@@ -1,0 +1,43 @@
+{
+  "users": [
+    "banned_by_user_id",
+    "invited_by_user_id",
+    "disabled_invite_by_user_id"
+  ],
+  "comments": [
+    "id"
+  ],
+  "votes": [
+    "story_id"
+  ],
+  "moderations": [
+    "story_id"
+  ],
+  "read_ribbons": [
+    "story_id"
+  ],
+  "saved_stories": [
+    "story_id"
+  ],
+  "hidden_stories": [
+    "story_id"
+  ],
+  "stories": [
+    "merged_story_id"
+  ],
+  "domains": [
+    "id"
+  ],
+  "taggings": [
+    "story_id"
+  ],
+  "suggested_taggings": [
+    "story_id"
+  ],
+  "tags": [
+    "id"
+  ],
+  "hats": [
+    "id"
+  ]
+}

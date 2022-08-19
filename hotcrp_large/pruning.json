@@ -1,0 +1,33 @@
+{
+  "Paper":[
+    "shepherdContactId"
+  ],
+  "PaperComment": [
+    "paperId"
+  ],
+  "PaperConflict": [
+    "contactId"
+  ],
+  "PaperReview": [
+    "requestedBy"
+  ],
+  "PaperReviewPreference":[
+    "paperId"
+  ],
+  "ReviewRating":[
+    "paperId",
+    "reviewId"
+  ],
+  "FilteredDocument": [
+      "outDocId"
+    ],
+  "PaperTag": [
+      "paperId"
+    ],
+  "PaperWatch": [
+      "contactId"
+    ],
+  "PaperStorage": [
+    "paperStorageId"
+  ]
+}

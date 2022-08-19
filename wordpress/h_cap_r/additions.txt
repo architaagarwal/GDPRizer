@@ -1,0 +1,5 @@
+wp_users.ID--wp_usermeta.user_id
+wp_users.ID--wp_posts.post_author
+wp_posts.ID--wp_postmeta.post_id
+wp_comments.comment_ID--wp_commentmeta.comment_id
+wp_usermeta.user_id--wp_comments.user_id

@@ -1,0 +1,5 @@
+ActionLog.contactId--PaperReview.contactId
+ActionLog.paperId--PaperReview.paperId
+ContactInfo.contactId--ReviewRating.contactId
+ContactInfo.contactId--TopicInterest.contactId
+Paper.paperId--PaperReview.paperId

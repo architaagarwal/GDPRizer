@@ -1,0 +1,9 @@
+wp_comments.comment_ID--wp_commentmeta.comment_id
+wp_users.ID--wp_posts.post_author
+wp_users.ID--wp_comments.user_id
+wp_users.ID--wp_woocommerce_payment_tokens.user_id
+wp_users.ID--wp_wc_customer_lookup.user_id
+wp_users.ID--wp_wc_download_log.user_id
+wp_users.ID--wp_wc_webhooks.user_id
+wp_users.ID--wp_woocommerce_api_keys.user_id
+wp_users.ID--wp_woocommerce_downloadable_product_permissions.user_id

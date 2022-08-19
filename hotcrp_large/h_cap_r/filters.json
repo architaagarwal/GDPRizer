@@ -1,0 +1,22 @@
+{
+	"PaperReview":[
+	"contactId",
+    "reviewToken",
+    "reviewType",
+    "reviewRound",
+    "requestedBy",
+    "timeRequested",
+    "timeRequestNotified",
+    "reviewBlind",
+    "reviewModified",
+    "reviewSubmitted",
+    "reviewNotified",
+    "reviewAuthorNotified",
+    "reviewAuthorSeen",
+    "reviewOrdinal",
+    "reviewEditVersion",
+    "reviewNeedsSubmit",
+    "reviewerQualification",
+    "commentsToPC"
+	]
+}

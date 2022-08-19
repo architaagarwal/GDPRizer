@@ -1,0 +1,3 @@
+wp_comments.comment_ID--wp_commentmeta.comment_id
+wp_users.ID--wp_posts.post_author
+wp_users.ID--wp_comments.user_id

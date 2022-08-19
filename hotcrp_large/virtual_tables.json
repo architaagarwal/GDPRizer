@@ -1,0 +1,8 @@
+{
+	"Paper": {
+		"v_columns":[
+			["v_author", "Paper", "leadContactId"]
+			],
+		"query": "select P.*, PC.contactId as v_author from Paper as P JOIN PaperConflict as PC ON P.paperId = PC.paperId where PC.conflictType in (9, 10) UNION select P.*, P.leadContactId as v_author from Paper as P;"
+	}
+} 

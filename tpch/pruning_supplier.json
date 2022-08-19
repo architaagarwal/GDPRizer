@@ -1,0 +1,15 @@
+{
+	"CUSTOMER": [
+		"C_CUSTKEY",
+      	"C_NATIONKEY"
+      ],
+	"LINEITEM": [
+		"L_ORDERKEY",
+      	"L_PARTKEY",
+      	"L_SUPPKEY"
+      ],
+	"ORDERS":[
+		"O_ORDERKEY",
+      	"O_CUSTKEY"
+  ]
+}

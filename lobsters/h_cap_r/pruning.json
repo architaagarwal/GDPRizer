@@ -1,0 +1,14 @@
+{
+  "domains": [
+    "id"
+  ],
+  "moderations": [
+    "tag_id"
+  ],
+  "votes": [
+    "story_id"
+  ],
+  "taggings": [
+    "story_id"
+  ]
+}

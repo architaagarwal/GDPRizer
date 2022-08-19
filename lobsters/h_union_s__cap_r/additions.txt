@@ -1,0 +1,2 @@
+moderations.user_id--users.id
+users.id--messages.author_user_id

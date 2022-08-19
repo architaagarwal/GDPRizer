@@ -1,0 +1,2 @@
+ContactInfo.contactId--ReviewRating.contactId
+PaperTopic.topicId--TopicArea.topicId

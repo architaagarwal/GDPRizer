@@ -1,0 +1,6 @@
+SELECT * FROM wp_users WHERE ID = ds_id;
+SELECT * FROM wp_usermeta WHERE user_id IN (SELECT ID FROM wp_users WHERE ID = ds_id);
+SELECT * FROM wp_comments WHERE user_id = ds_id;
+SELECT * FROM wp_commentmeta WHERE comment_id IN (SELECT comment_ID FROM wp_comments WHERE user_id = ds_id);
+SELECT * FROM wp_posts WHERE post_author = ds_id;
+SELECT * FROM wp_postmeta WHERE post_id IN (SELECT ID FROM wp_posts WHERE post_author = ds_id);
