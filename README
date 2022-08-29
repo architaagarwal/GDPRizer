@@ -26,17 +26,17 @@ The code assume that a MySQL server is running at port 3306 on localhost with th
 
 - queryParser.py: this file reads the parsed json queries from "parsed_queries.json" to infer the foreign-key constraints.
 
-- traversal.py:
+- traversal.py: this file traverses the relationship graph and extracts data.
 
-- heuristics_graph.py: 
+- heuristics_graph.py: this file creates a relationship graph using data-driven methods.
 
-- inclusion_dependency.py:
+- inclusion_dependency.py: this file runs all the data-driven methods to identify inclusion dependencies.
 
-- data_structures.py: 
+- data_structures.py: this file contains the global class definitions for the data structures used.
 
-- global_vars.py:
+- global_vars.py: this file contains the global variable definitions.
 
-* Configuration and data files:
+* Configuration and data files (for each application):
 (1) schema.sql: schema of the database
 (2) querylog.csv: query log from the run of the application
 (3) app_settings.py: configuration file for each of the graphs and paths to data files, and customization files
